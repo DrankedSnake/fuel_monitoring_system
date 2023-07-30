@@ -1,0 +1,14 @@
+.grid-container{
+    background-color: azure;
+    width: 90%;
+    height: 90%;
+    margin-top: 2%;
+    margin-bottom: 2%;
+    margin-left: 2%;
+    margin-right: 2%;
+    border: solid rgb(54, 35, 35);
+    border-radius: 10px;
+}
+.table-header{
+    background-color: #0f0f0f;
+}

@@ -1,0 +1,7 @@
+#navigation-bar{
+    width: 20%;
+    height: 80%;
+    background-color:burlywood;
+    flex-grow: 1;
+    size: fixed;
+}
