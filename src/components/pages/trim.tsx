@@ -1,6 +1,8 @@
-import { Show, createResource } from "solid-js"
+import { Show, createResource, createSignal } from "solid-js"
 import Title from "../title"
 import Table from "../table/table"
+import AddRecordModal from "../addRecordModal"
+import UploadFileModal from "../uploadFileModal"
 
 
 const getTrims = async ()=> {
@@ -16,10 +18,15 @@ export default function Trim(){
             <Show when={trims()} fallback={<p>Loading...</p>}>
                 <Table records={trims()}/>
             </Show>
-            <div class="operations-bar">
-                <button>Add trim</button>
-                <button>Upload trims from csv file</button>
-            </div>
+            <AddRecordModal buttonText="Add trim" title="Add trim">
+                <div>
+                    <label for="value">Value</label>
+                    <input type="text" name="value" id="value" />
+                </div>
+            </AddRecordModal>
+            <UploadFileModal buttonText="Upload from csv file" title="Upload trims">
+                <input type="file" id="trimFile" name="filename"/>
+            </UploadFileModal>
         </div>
     )
 }

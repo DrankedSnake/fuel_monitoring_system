@@ -1,8 +1,8 @@
 #![cfg_attr(not(debug_assertions), windows_subsystem = "windows")]
 
-mod tanks;
+mod api;
 
-use tanks::get_tanks;
+use api::get_tanks;
 
 
 fn main() {

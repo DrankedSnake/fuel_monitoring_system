@@ -1,0 +1,48 @@
+@startuml
+skinparam linetype ortho
+
+entity Tank{
+    id: UUID,
+    name: Str,
+    available_volume: double,
+    current_volume: double,
+    vessel_id: UUID,
+    previous_volume: double,
+}
+entity Tanker{
+    id: UUID,
+    name: str,
+}
+enum DifferenceType{
+    Bunkering,
+    Consumption,
+}
+entity Difference{
+    id: UUID,
+    value: doulbe,
+    type: DifferenceType,
+    tank_id: UUID,
+    tanker_id: UUID,
+}
+entity Vessel{
+    id: UUID,
+    name: Str,
+}
+entity Consumer{
+    id: UUID,
+    name: Str,
+    type: ConsumerType,
+    vessel_id: UUID,
+}
+enum ConsumerType{
+    Engine,
+    Generator,
+}
+
+Difference ||-|{ Tank
+Tank }|-|| Vessel
+Difference ||-down-|| DifferenceType
+Difference ||-up-o| Tanker
+Consumer ||--|| ConsumerType
+Vessel ||--|{ Consumer
+@enduml
