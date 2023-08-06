@@ -1,7 +1,7 @@
 import { Route, Routes } from "@solidjs/router";
 import "./App.css";
 
-import {Differences, Trim, NavigationBar, Tankers, Tanks} from "./components";
+import {Differences, TankVolumeProfile, NavigationBar, Tankers, Tanks, Vessels} from "./components";
 
 
 export default function App() {
@@ -14,7 +14,8 @@ export default function App() {
            <Route path="/tankers" component={Tankers}/>
            <Route path="/differences" component={Differences}/>
            <Route path="/tanks" component={Tanks}/>
-           <Route path="/trim" component={Trim}/>
+           <Route path="/tank_volume_profile" component={TankVolumeProfile}/>
+           <Route path="/vessels" component={Vessels}/>
         </Routes>
       </div>
     </div>

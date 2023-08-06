@@ -21,7 +21,7 @@
     "bundle": {
       "active": true,
       "targets": "all",
-      "identifier": "com.tauri.dev",
+      "identifier": "com.tauri.fms",
       "icon": [
         "icons/32x32.png",
         "icons/128x128.png",
@@ -38,8 +38,8 @@
         "fullscreen": false,
         "resizable": true,
         "title": "fuel_monitoring_system",
-        "width": 800,
-        "height": 600
+        "width": 1200,
+        "height": 900
       }
     ]
   }

@@ -1,11 +1,12 @@
-import { Show, createSignal } from "solid-js";
+import { Show, children, createSignal } from "solid-js";
 import "./modal.css";
 
 
 export default function AddRecordModal(props){
     const [isOpen, setIsOpen] = createSignal(false)
 
-    const addRecord = (event) => {
+    const addRecord = async (event) => {
+        await props.add_record_callback();
         setIsOpen(false);
     };
 

@@ -1,6 +1,7 @@
 import BarItem from "./bar_item/bar_item";
 import items from "../../data/navigation_items";
 import { For, Show } from "solid-js";
+import "./navigation_bar.css"
 
 
 export default function NavigationBar(){

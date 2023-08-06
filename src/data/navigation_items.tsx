@@ -3,7 +3,8 @@ const items = function(){
         {title: "Tankers", path: "/tankers"},
         {title: "Differences", path: "/differences"},
         {title: "Tanks", path: "/tanks"},
-        {title: "Trim", path: "/trim"},
+        {title: "Tank profiles", path: "/tank_volume_profile"},
+        {title: "Vessels", path: "/vessels"}
     ];
 }
 

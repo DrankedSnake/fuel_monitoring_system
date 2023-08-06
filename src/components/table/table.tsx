@@ -5,26 +5,33 @@ import Record from "./record";
 
 
 export default function Table(props: any){
-    return (
-        <table class="grid-container">
-            <thead class="table-header">
-                <For each={Object.keys(props.records[0])}>
-                    {
-                        (key)=>(
-                            <th>{key.replace("_", " ").toUpperCase()}</th>
-                        )
-                    }
-                </For>
-            </thead>
-            <tbody>
-            <For each={props.records}>
+    if (props.records) {
+        return (
+            <table class="grid-container">
+                <thead class="table-header">
+                    <For each={props.headers}>
+                        {
+                            (header)=>{
+                                return (
+                                    <th>{header}</th>
+                                )                            
+                            }
+                        }
+                    </For>
+                </thead>
+                <tbody>
+                <For each={props.records}>
                 {
                     (record)=>(
-                        <Record value={record}/>
+                        <Record record={record} headers={props.headers}/>
                     )
                 }
-            </For>
-            </tbody>
-        </table>
-    )
+                </For>
+                </tbody>
+            </table>
+        )
+    }
+    else {
+        return (<p>No data</p>)
+    }
 }

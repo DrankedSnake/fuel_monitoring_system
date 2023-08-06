@@ -1,7 +1,9 @@
 #navigation-bar{
-    width: 20%;
-    height: 80%;
-    background-color:burlywood;
-    flex-grow: 1;
-    size: fixed;
+    width: 15%;
+    /* height: 100%; */
+    height:auto;
+    background-color: grey;
+    border-radius: 10px;
+    /* flex-grow: 1; */
+    /* size: fixed; */
 }

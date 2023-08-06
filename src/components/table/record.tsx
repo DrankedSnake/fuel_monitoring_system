@@ -5,10 +5,10 @@ import "./record.css";
 export default function Record(props){
     return (
         <tr class="grid-item">
-            <For each={Object.values(props.value)}>
+            <For each={props.headers}>
                 {
-                    (value)=>(
-                        <td>{value}</td>
+                    (header)=>(
+                        <td>{props.record[header]}</td>
                     )
                 }
             </For>

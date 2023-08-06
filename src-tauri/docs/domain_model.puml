@@ -2,12 +2,13 @@
 skinparam linetype ortho
 
 entity Tank{
-    id: UUID,
+    id: Str,
     name: Str,
     available_volume: double,
     current_volume: double,
-    vessel_id: UUID,
     previous_volume: double,
+    safe_volume: double,
+    vessel_id: Str,
 }
 entity Tanker{
     id: UUID,
@@ -39,7 +40,7 @@ enum ConsumerType{
     Generator,
 }
 
-Difference ||-|{ Tank
+Difference ||-|| Tank
 Tank }|-|| Vessel
 Difference ||-down-|| DifferenceType
 Difference ||-up-o| Tanker
