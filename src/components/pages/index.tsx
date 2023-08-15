@@ -1,8 +1,9 @@
 import Tankers from "./tankers"
 import Differences from "./differences"
 import Tanks from "./tanks"
-import TankVolumeProfile from "./tankVolumeProfile"
+import TankProfile from "./tankProfile"
 import Vessels from "./vessels"
+import DensityCoefficient from "./densityCoefficient"
 
 
-export {Tankers, Differences, Tanks, TankVolumeProfile, Vessels}
+export {Tankers, Differences, Tanks, TankProfile, Vessels, DensityCoefficient}

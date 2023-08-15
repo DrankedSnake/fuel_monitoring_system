@@ -1,15 +1,24 @@
 # List of features
+1. Update screen Tanks:
+   * update state with created tank to render it in table (use mutate instead of refetch)
+2. Update Tank profiles screen
+   * finish form for adding single profile
+3. Update density temperature screen
+   * finish form for adding single density coefficient
+4. Add screen for Differences
+   * add difference table in db
+   * add get_differences flow
+   * add add_difference flow
+   * describe difference model
+   * describe difference schema
+   * design add implement difference modal form
+   * implement logic for updating tank current volume after adding new difference
+   * implement indicator for available volume in tank
+5. Add screen for adding cruise
+6. Add screen for adding consumption details
+7. Finish css styles for whole application to have modern design
 
-1. Add screen with adding and displaying vessels
-2. Update screen Tanks:
-   * get list of vessels on tank screen
-   * add select options on tanks screen with list of vessels
-   * get tanks for specific vessel (send vessel id to get_tanks)
-   * return created tank from add_tank handler
-   * update state with created tank to render it in table
-3. Add handler for adding single trim
-4. Add handler for adding list of trims using csv file
-5. Add handler for getting list of differences
-6. Add screen for adding cruise
-7. Add screen for adding consumption details
-8. Finish modal for add record to open in center of screen
+# List of improvements
+* add previous mass into the tank
+* update columns for difference
+* add difference details model (id, consume_id, difference_id, working_time, load_type)

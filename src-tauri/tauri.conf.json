@@ -16,6 +16,19 @@
       "shell": {
         "all": false,
         "open": true
+      },
+      "fs": {
+        "readFile": true,
+        "writeFile": true,
+        "readDir": true,
+        "createDir": true,
+        "exists": true,
+        "scope": ["$HOME/Documents/*", "$HOME/Documents/**", "$HOME/Documents"]
+      },
+      "http": {
+        "all": true,
+        "request": true,
+        "scope": ["http://localhost:1420/add_tank_profiles"]
       }
     },
     "bundle": {

@@ -1,5 +1,5 @@
-import NavigationBar from "./navigation_bar/navigation_bar";
-import { Tankers, TankVolumeProfile, Tanks, Differences, Vessels} from "./pages";
+import NavigationBar from "./navigation_bar/navigationBar";
+import { Tankers, TankProfile, Tanks, Differences, Vessels, DensityCoefficient} from "./pages";
 
 
 export {
@@ -8,5 +8,6 @@ export {
     Tankers,
     Differences,
     Tanks,
-    TankVolumeProfile,
+    TankProfile,
+    DensityCoefficient,
 }

@@ -1,4 +1,6 @@
-.grid-item{
-    padding: 5px;
-    background-color: #0f0f0f;
+.column{
+    /* display: flex; */
+    justify-content: flex-start;
+    align-items: center;
+    text-align: start;
 }

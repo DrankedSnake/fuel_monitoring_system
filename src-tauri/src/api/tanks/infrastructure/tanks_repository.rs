@@ -15,7 +15,7 @@ pub fn select_tanks(tank_vessel_id: String) -> Vec<Tank>{
         .load(connection).expect("Error during selecting tanks");
     tanks
 }
-
+ 
 
 pub fn insert_tank(new_tank: Tank) -> Tank{
     let connection = &mut establish_connection();
@@ -45,18 +45,27 @@ pub fn insert_tank_profile(new_tank_profile: TankProfile) -> TankProfile{
 }
 
 
-pub fn insert_tank_profiles(new_tank_profiles: Vec<TankProfile>) -> Vec<TankProfile>{
+pub fn insert_tank_profiles(new_tank_profiles: Vec<TankProfile>) -> usize{
     let connection = &mut establish_connection();
     
     insert_into(tank_profile)
         .values(&new_tank_profiles)
-        .get_results(connection).expect("Error during insert tank")
+        .execute(connection).expect("Error during insert tank")
 }
 
 
-pub fn select_density_coefficients(density_temperature: f64) -> Vec<DensityCoefficient>{
+pub fn select_density_coefficients_for_temperature(density_temperature: f64) -> Vec<DensityCoefficient>{
     let connection = &mut establish_connection();
     let result = FilterDsl::filter(density_coefficient, temperature.eq(density_temperature))
+        .select(DensityCoefficient::as_select())
+        .load(connection).expect("Error during selecting tank profiles");
+    result
+}
+
+
+pub fn select_density_coefficients() -> Vec<DensityCoefficient>{
+    let connection = &mut establish_connection();
+    let result = density_coefficient
         .select(DensityCoefficient::as_select())
         .load(connection).expect("Error during selecting tank profiles");
     result

@@ -1,8 +1,10 @@
-use std::collections::HashMap;
+use std::{collections::HashMap, fs::copy};
 
+use csv::Reader;
 use diesel::prelude::*;
 use serde::{Serialize, Deserialize};
 use serde_json::Value;
+use tauri::http::header;
 use uuid::Uuid;
 
 use crate::api::AbstractModel;
@@ -27,6 +29,32 @@ impl DensityCoefficient{
             density: Self::parse_f64(data.get("density")),
             coefficient: Self::parse_f64(data.get("coefficient")),      
         }
+    }
+
+    pub fn from_csv(file_path: &str) -> Vec<Self>{
+        let mut items: Vec<Self> = Vec::new();
+
+        let mut reader = Reader::from_path(file_path).expect("No such file found.");
+        let headers = reader.headers().unwrap().clone();
+        let records = reader.records();
+
+        for record in records {
+            let record = record.unwrap();
+            let mut index = 1;
+            while index < record.len(){
+                items.push(
+                    Self{
+                        id: Uuid::new_v4().to_string(),
+                        temperature: record[0].to_string().parse::<f64>().unwrap(),
+                        density: headers[index].to_string().parse::<f64>().unwrap(),
+                        coefficient: record[index].to_string().parse::<f64>().unwrap(),
+                    }
+                );
+                index += 1;
+            }
+        }
+        items
+
     }
 }
 impl AbstractModel for DensityCoefficient {}

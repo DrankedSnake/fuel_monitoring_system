@@ -2,6 +2,6 @@ import "./title.css";
 
 export default function Title(props: any){
     return (
-        <div class="title">{props.value}</div>
+        <h2 class="title">{props.value}</h2>
     )
 }

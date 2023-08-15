@@ -16,12 +16,14 @@ use crate::api::AbstractModel;
 pub struct Vessel {
     pub id: String,
     pub name: String,
+    pub year: i32,
 }
 impl Vessel {
     pub fn from_map(data: HashMap<String, Value>) -> Self {
         Self {
             id: Uuid::new_v4().to_string(),
             name: Self::parse_string(data.get("vessel_name")),
+            year: Self::parse_i32(data.get("vessel_year")),
         }
     }
 }

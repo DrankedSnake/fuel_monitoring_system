@@ -16,13 +16,10 @@ use crate::api::AbstractModel;
 #[derive(Serialize, Deserialize, Debug)]
 pub struct Difference {
     id: String,
-    from_tank_id: String,
-    to_tank_id:String,
-    tanker_id: String,
-    consumer_id: String,
+    tank_id: String,
     difference_type: DifferenceType,
-    fuel_volume: f64,
-    fuel_mass: f64,
+    volume: f64,
+    mass: f64,
     density_coefficient_id: String,
     date_created: Datetime,
 }

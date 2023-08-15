@@ -4,7 +4,7 @@ import "./record.css";
 
 export default function Record(props){
     return (
-        <tr class="grid-item">
+        <tr class="row">
             <For each={props.headers}>
                 {
                     (header)=>(
@@ -13,5 +13,6 @@ export default function Record(props){
                 }
             </For>
         </tr>
+
     )
 }

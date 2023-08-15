@@ -10,20 +10,16 @@ entity Tank{
     safe_volume: double,
     vessel_id: Str,
 }
-entity Tanker{
-    id: UUID,
-    name: str,
-}
 enum DifferenceType{
     Bunkering,
     Consumption,
 }
 entity Difference{
     id: UUID,
-    value: doulbe,
+    volume: doulbe,
+    mass: doulbe,
     type: DifferenceType,
     tank_id: UUID,
-    tanker_id: UUID,
 }
 entity Vessel{
     id: UUID,
@@ -40,10 +36,9 @@ enum ConsumerType{
     Generator,
 }
 
-Difference ||-|| Tank
+Difference }|-|| Tank
 Tank }|-|| Vessel
 Difference ||-down-|| DifferenceType
-Difference ||-up-o| Tanker
 Consumer ||--|| ConsumerType
 Vessel ||--|{ Consumer
 @enduml

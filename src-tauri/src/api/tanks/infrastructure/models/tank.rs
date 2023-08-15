@@ -16,21 +16,37 @@ use super::super::schemas::tank;
 pub struct Tank {
     pub id: String,
     pub name: String,
-    pub available_volume: f64,
+    pub full_volume: f64,
     pub current_volume: f64,
+    pub safe_volume: f64,
     pub vessel_id: String,
     pub previous_volume: f64,
+    pub current_mass: f64,
+    pub previous_mass: f64,
+    pub fuel_type: String,
+    pub tank_type: String,
 }
 
 impl Tank {
     pub fn from_map(data: HashMap<String, Value>) -> Self{
+        let mut safe_volume = Self::parse_f64(data.get("safe_volume"));
+
+        if safe_volume > 1.0{
+            safe_volume /= 100.0;
+        }
+
         Self { 
             id: Uuid::new_v4().to_string(), 
             name: Self::parse_string(data.get("tank_name")), 
-            available_volume: Self::parse_f64(data.get("available_volume")),
+            full_volume: Self::parse_f64(data.get("full_volume")),
             current_volume: Self::parse_f64(data.get("current_volume")), 
-            vessel_id: Self::parse_string(data.get("vessel_id")), 
-            previous_volume: 0.0,
+            safe_volume: Self::parse_f64(data.get("full_volume")) * safe_volume, 
+            current_mass: Self::parse_f64(data.get("current_mass")),
+            vessel_id: Self::parse_string(data.get("vessel_id")),
+            previous_volume: Self::parse_f64(data.get("previous_volume")),
+            previous_mass: Self::parse_f64(data.get("previous_mass")),
+            fuel_type: Self::parse_string(data.get("fuel_type")),
+            tank_type: Self::parse_string(data.get("tank_type")),
         }
     }
 }

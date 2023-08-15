@@ -3,4 +3,5 @@ pub enum DifferenceType{
     CONSUMPTION,
     TRANSFER,
     ESTIMATED_BUNKER,
+    OTHER,
 }

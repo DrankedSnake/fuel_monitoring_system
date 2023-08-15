@@ -3,7 +3,9 @@ import Title from "../title";
 import Table from "../table/table";
 import { invoke } from "@tauri-apps/api";
 import { createStore } from "solid-js/store";
-import AddRecordModal from "../addRecordModal";
+import { AddRecordModal } from "../modals";
+import { NavigationItems } from "../../data";
+import { InputField } from "../inputField";
 
 
 const getVessels = async ()=>{
@@ -15,12 +17,12 @@ export default function Vessels(){
     const addVessel = async (vessel: any) => {
         let newVessel = await invoke("add_vessel", {"vessel": vessel}).then().catch();
         refetch();
-
     }
 
     const [form, setForm] = createStore(
         {
             "vessel_name": "",
+            "vessel_year": 0,
         }
     );
 
@@ -39,13 +41,28 @@ export default function Vessels(){
         <div class="screen-container">
             <Title value="Vessels"/>
             <Show when={vessels()} fallback={<p>Loading...</p>}>
-                <Table records={vessels()}/>
+                <Table records={vessels()} 
+                    headers={
+                        NavigationItems()
+                        .filter(item => item.name === "vessels")[0].item.tableHeaders
+                    }
+                />
             </Show>
             <AddRecordModal buttonText="Add vessel" title="Add vessel" add_record_callback={submitForm}>
-                <div>
-                    <label for="vessel_name">Vessel name</label>
-                    <input type="text" name="vessel_name" id="vessel_name" onChange={updateFormField("vessel_name")}/>
-                </div>
+                <InputField
+                    placeholder="Vessel name" 
+                    type="text" 
+                    name="vessel_name" 
+                    id="vessel_name" 
+                    onChange={updateFormField("vessel_name")} 
+                />
+                <InputField
+                    placeholder="Vessel year" 
+                    type="text" 
+                    name="vessel_year" 
+                    id="vessel_year" 
+                    onChange={updateFormField("vessel_year")} 
+                />
             </AddRecordModal>
         </div>
     )

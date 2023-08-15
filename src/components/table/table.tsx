@@ -1,37 +1,37 @@
 import "./table.css";
 
-import { For } from "solid-js";
+import { For, Show } from "solid-js";
 import Record from "./record";
 
 
 export default function Table(props: any){
-    if (props.records) {
         return (
-            <table class="grid-container">
+            <table class="board">
                 <thead class="table-header">
-                    <For each={props.headers}>
-                        {
-                            (header)=>{
-                                return (
-                                    <th>{header}</th>
-                                )                            
+                    <tr>
+                        <For each={props.headers}>
+                            {
+                                (header: string)=>{
+                                    return (
+                                        <td>{header.replace("_", " ")}</td>
+                                    )                            
+                                }
                             }
-                        }
-                    </For>
+                        </For>
+                    </tr>
+                    
                 </thead>
                 <tbody>
-                <For each={props.records}>
-                {
-                    (record)=>(
-                        <Record record={record} headers={props.headers}/>
-                    )
-                }
-                </For>
+                    <Show when={props.records}>
+                        <For each={props.records} fallback={<p>Loading...</p>}>
+                        {
+                            (record)=>(
+                                <Record record={record} headers={props.headers}/>
+                            )
+                        }
+                        </For>
+                    </Show>
                 </tbody>
             </table>
         )
-    }
-    else {
-        return (<p>No data</p>)
-    }
 }

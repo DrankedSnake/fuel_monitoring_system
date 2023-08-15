@@ -1,7 +1,8 @@
 import { Route, Routes } from "@solidjs/router";
 import "./App.css";
-
-import {Differences, TankVolumeProfile, NavigationBar, Tankers, Tanks, Vessels} from "./components";
+import { NavigationItems } from "./data";
+import { For } from "solid-js";
+import { NavigationBar } from "./components";
 
 
 export default function App() {
@@ -10,12 +11,11 @@ export default function App() {
       <div id="container">
         <NavigationBar />
         <Routes>
-           <Route path="/" component={Differences}/>
-           <Route path="/tankers" component={Tankers}/>
-           <Route path="/differences" component={Differences}/>
-           <Route path="/tanks" component={Tanks}/>
-           <Route path="/tank_volume_profile" component={TankVolumeProfile}/>
-           <Route path="/vessels" component={Vessels}/>
+          <For each={Object.values(NavigationItems())}>
+          {
+            (item) => (<Route path={item.item.path} component={item.item.component}/>)
+          }
+          </For>
         </Routes>
       </div>
     </div>
