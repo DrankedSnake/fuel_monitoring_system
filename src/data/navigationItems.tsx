@@ -33,7 +33,11 @@ const NavigationItems = () => {
                 path: "/differences",
                 component: Differences,
                 tableHeaders: [
-                    
+                    "volume",
+                    "mass",
+                    "density_coefficient",
+                    "difference_type",
+                    "date_created",
                 ],
             }
         },

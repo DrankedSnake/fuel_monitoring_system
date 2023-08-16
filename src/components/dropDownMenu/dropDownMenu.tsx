@@ -6,8 +6,9 @@ type DropDownMenuProps = {
     items: Array<Object>,
     displayValueKey: string,
     identifyValueKey: string,
-    setSignalCallback: Function
-    placeholder: string
+    setSignalCallback: Function,
+    placeholder: string,
+    setStorageCallback: Function,
 };
 
 
@@ -35,7 +36,13 @@ export default function DropDownMenu(props: DropDownMenuProps){
                                 onClick={
                                     ()=>{
                                         inputField.value = item[props.displayValueKey];
-                                        props.setSignalCallback(item[props.identifyValueKey])
+
+                                        if (props.setSignalCallback) {
+                                            props.setSignalCallback(item[props.identifyValueKey]);
+                                        }
+                                        if (props.setStorageCallback) {
+                                            props.setStorageCallback(item);
+                                        }
                                     }
                                 }
                                 id={item[props.identifyValueKey]}>{item[props.displayValueKey]}

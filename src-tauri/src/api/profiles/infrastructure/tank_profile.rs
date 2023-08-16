@@ -1,17 +1,15 @@
-use std::{collections::HashMap};
+use std::collections::HashMap;
 
 use diesel::prelude::*;
 use serde::{Serialize, Deserialize};
 use serde_json::Value;
 use uuid::Uuid;
-use csv::{self, Reader};
 
-use crate::api::{AbstractModel};
-use super::super::schemas::tank_profile;
+use super::super::super::fms_core::AbstractModel;
 
 
 #[derive(Queryable, Selectable, Insertable)]
-#[diesel(table_name = tank_profile)]
+#[diesel(table_name = super::schema)]
 #[diesel(check_for_backend(diesel::pg::Pg))]
 #[derive(Serialize, Deserialize, Debug)]
 pub struct TankProfile {

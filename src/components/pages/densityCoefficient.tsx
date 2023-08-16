@@ -37,8 +37,9 @@ export default function DensityCoefficient(){
         );
     };
     return (
+        // TODO: refactor component using latest changes in forms inputs buttons and navigation items
         <div class="screen-container">
-            <Title value="Tanks profiles"/>
+            <Title value="Density coefficients"/>
             <Show when={densityCoefficients()} fallback={<p>Loading...</p>}>
                 <Table records={densityCoefficients()} headers={["temperature", "density", "coefficient"]}/>
             </Show>

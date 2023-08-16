@@ -1,18 +1,16 @@
-use std::{collections::HashMap, fs::copy};
+use std::collections::HashMap;
 
 use csv::Reader;
 use diesel::prelude::*;
 use serde::{Serialize, Deserialize};
 use serde_json::Value;
-use tauri::http::header;
 use uuid::Uuid;
 
-use crate::api::AbstractModel;
-use super::super::schemas::density_coefficient;
+use super::super::super::fms_core::AbstractModel;
 
 
 #[derive(Queryable, Selectable, Insertable)]
-#[diesel(table_name = density_coefficient)]
+#[diesel(table_name = super::schema)]
 #[diesel(check_for_backend(diesel::pg::Pg))]
 #[derive(Serialize, Deserialize, Debug)]
 pub struct DensityCoefficient{

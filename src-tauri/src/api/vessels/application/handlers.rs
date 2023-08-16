@@ -2,7 +2,11 @@ use std::collections::HashMap;
 
 use serde_json::Value;
 
-use crate::api::vessels::{infrastructure::Vessel, insert_vessel, select_vessels};
+use super::super::infrastructure::{
+    select_vessels,
+    insert_vessel,
+    Vessel,
+};
 
 
 #[tauri::command]

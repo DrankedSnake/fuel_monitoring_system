@@ -1,16 +1,10 @@
-mod models;
-mod tanks_repository;
-mod schemas;
+mod tank;
+mod tank_schema;
+mod repository;
 
-pub use models::{Tank, TankProfile, DensityCoefficient};
-pub use tanks_repository::{
+pub use repository::{
     select_tanks,
     insert_tank,
-    select_tank_profiles,
-    insert_tank_profile,
-    insert_tank_profiles,
-    select_density_coefficients_for_temperature,
-    select_density_coefficients,
-    insert_density_coefficient,
-    insert_density_coefficients,
 };
+pub use tank::Tank;
+pub use tank_schema::tank as schema;

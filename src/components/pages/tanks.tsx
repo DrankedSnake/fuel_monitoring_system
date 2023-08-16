@@ -54,9 +54,9 @@ export default function Tanks(){
     const updateFormField = (fieldName: string) => (event: Event) => {
         const inputElement = event.currentTarget as HTMLInputElement;
         setForm({
-          [fieldName]: inputElement.value
+            [fieldName]: inputElement.value
         });
-      };
+    };
 
     const submitForm = async () => {
         await addTank(form);

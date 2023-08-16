@@ -2,7 +2,7 @@ use diesel::{QueryDsl, SelectableHelper, RunQueryDsl, insert_into};
 
 use super::Vessel;
 use super::super::super::fms_core::establish_connection;
-use super::models::vessel_schema::dsl::*;
+use super::schema::dsl::*;
 
 pub fn select_vessels() -> Vec<Vessel>{
     let connection = &mut establish_connection();
