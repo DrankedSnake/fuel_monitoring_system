@@ -32,11 +32,11 @@
 }
 
 #menu .items li:hover i,
-#menu .items li:hover a{
+#menu .items a li:hover {
     color: #f3f4f6;
 }
 
-#menu .items li a{
+#menu .items a li{
     text-decoration: none;
     color: rgb(134, 141, 151);
     font-weight: 300px;

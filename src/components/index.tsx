@@ -1,8 +1,9 @@
 import NavigationBar from "./navigation_bar/navigationBar";
-import { Tankers, TankProfile, Tanks, Differences, Vessels, DensityCoefficient} from "./pages";
+import { Dashboard, Tankers, TankProfile, Tanks, Differences, Vessels, DensityCoefficient} from "./pages";
 
 
 export {
+    Dashboard,
     Vessels,
     NavigationBar,
     Tankers,

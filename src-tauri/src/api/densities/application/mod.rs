@@ -1,4 +1,5 @@
 mod handlers;
+pub mod service;
 
 pub use handlers::{
     get_density_coefficients,

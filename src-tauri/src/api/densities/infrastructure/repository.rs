@@ -1,47 +1,59 @@
-use diesel::{insert_into, RunQueryDsl, QueryDsl, SelectableHelper, ExpressionMethods};
+use diesel::{insert_into, RunQueryDsl, QueryDsl, SelectableHelper, ExpressionMethods, BoolExpressionMethods};
 use diesel::query_dsl::methods::FilterDsl;
 
-use super::{
-    super::super::fms_core::establish_connection, 
-    DensityCoefficient
-};
+use super::super::super::fms_core::establish_connection;
 use super::schema::dsl::*;
+use super::super::domain::DensityCoefficient;
 
 
-pub fn select_density_coefficients_for_temperature(density_temperature: f64) -> Vec<DensityCoefficient>{
-    let connection = &mut establish_connection();
-    let result = FilterDsl::filter(
-        density_coefficient, temperature.eq(density_temperature)
-    )
-    .select(DensityCoefficient::as_select())
-    .load(connection).expect("Error during selecting tank profiles");
-
-    result
-}
-
-
-pub fn select_density_coefficients() -> Vec<DensityCoefficient>{
-    let connection = &mut establish_connection();
-    let result = density_coefficient
+pub struct DensityCoefficientsRepository;
+impl DensityCoefficientsRepository {
+    pub fn select_density_coefficients_for_temperature(density_temperature: f64) -> Vec<DensityCoefficient>{
+        let connection = &mut establish_connection();
+        let result = FilterDsl::filter(
+            density_coefficient, temperature.eq(density_temperature)
+        )
         .select(DensityCoefficient::as_select())
-        .load(connection).expect("Error during selecting tank profiles");
-    result
-}
-
-
-pub fn insert_density_coefficient(new_density_coefficient: DensityCoefficient) -> DensityCoefficient{
-    let connection = &mut establish_connection();
+        .load(connection).expect("Error during selecting density");
     
-    insert_into(density_coefficient)
-        .values(&new_density_coefficient)
-        .get_result(connection).expect("Error during insert tank profiles")
-}
-
-
-pub fn insert_density_coefficients(new_density_coefficients: Vec<DensityCoefficient>) -> Vec<DensityCoefficient>{
-    let connection = &mut establish_connection();
+        result
+    }
     
-    insert_into(density_coefficient)
-        .values(&new_density_coefficients)
-        .get_results(connection).expect("Error during insert tank")
+    
+    pub fn select_density_coefficients() -> Vec<DensityCoefficient>{
+        let connection = &mut establish_connection();
+        let result = density_coefficient
+            .select(DensityCoefficient::as_select())
+            .load(connection).expect("Error during selecting density");
+        result
+    }
+    
+    
+    pub fn insert_density_coefficient(new_density_coefficient: DensityCoefficient) -> DensityCoefficient{
+        let connection = &mut establish_connection();
+        
+        insert_into(density_coefficient)
+            .values(&new_density_coefficient)
+            .get_result(connection).expect("Error during insert density")
+    }
+    
+    
+    pub fn insert_density_coefficients(new_density_coefficients: Vec<DensityCoefficient>) -> Vec<DensityCoefficient>{
+        let connection = &mut establish_connection();
+        
+        insert_into(density_coefficient)
+            .values(&new_density_coefficients)
+            .get_results(connection).expect("Error during insert density")
+    }
+
+    pub fn select_density_coefficient(search_temperature: f64, search_density: f64) -> DensityCoefficient {
+        let connection = &mut establish_connection();
+        let result = FilterDsl::filter(
+            density_coefficient, temperature.eq(search_temperature).and(density.eq(search_density))
+        )
+        .select(DensityCoefficient::as_select())
+        .get_result(connection).expect("Error during selecting density");
+    
+        result
+    }
 }

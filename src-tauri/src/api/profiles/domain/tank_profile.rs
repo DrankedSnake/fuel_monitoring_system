@@ -9,15 +9,15 @@ use super::super::super::fms_core::AbstractModel;
 
 
 #[derive(Queryable, Selectable, Insertable)]
-#[diesel(table_name = super::schema)]
+#[diesel(table_name = super::super::infrastructure::schema)]
 #[diesel(check_for_backend(diesel::pg::Pg))]
 #[derive(Serialize, Deserialize, Debug)]
 pub struct TankProfile {
-    id: String,
-    tank_id: String,
-    height: f64,
-    trim: f64,
-    volume: f64,
+    pub id: String,
+    pub tank_id: String,
+    pub height: f64,
+    pub trim: f64,
+    pub volume: f64,
 }
 impl TankProfile {
     pub fn from_map(data: HashMap<String, Value>) -> Self{
@@ -31,12 +31,10 @@ impl TankProfile {
     }
 
     pub fn is_value_empty(value: &String, empty_cell: &String) -> bool{
-        if value == empty_cell{
-            // println!("Empty volume in csv. Skipping pushing into collection.");
+        if value == empty_cell {
             return true;
-        }
-        else {
-            return false
+        }else{
+            return false;
         }
     }
 

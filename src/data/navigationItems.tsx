@@ -1,5 +1,5 @@
 import { JSXElement } from "solid-js";
-import { DensityCoefficient, Differences, TankProfile, Tankers, Tanks, Vessels } from "../components";
+import { Dashboard, DensityCoefficient, Differences, TankProfile, Tankers, Tanks, Vessels } from "../components";
 
 type ComponentCallback = (props: Object) => JSXElement;
 
@@ -18,6 +18,15 @@ type ItemContainer = {
 const NavigationItems = () => {
     return [
         {
+            name: "dashboard",
+            item: {
+                title: "Dashboard",
+                path: "/dashboard",
+                component: Dashboard,
+                tableHeaders: ["volume", "mass", "date"]
+            }
+        },
+        {
             name: "tankers",
             item: {
                 title: "Tankers",
@@ -35,8 +44,6 @@ const NavigationItems = () => {
                 tableHeaders: [
                     "volume",
                     "mass",
-                    "density_coefficient",
-                    "difference_type",
                     "date_created",
                 ],
             }
@@ -97,5 +104,4 @@ const NavigationItems = () => {
     ];
 };
 
-// export type {ItemContainer};
 export default NavigationItems;

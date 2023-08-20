@@ -35,12 +35,12 @@ export default function Differences(){
 
     const [form, setForm] = createStore(
         {
-            tankId: "",
-            tankHeight: 0.0,
-            fuelType: "",
-            differenceType: "",
+            tank_id: "",
+            tank_height: 0.0,
+            fuel_type: "",
+            difference_type: "",
             temperature: 0.0,
-            tankTrim: 0.0,
+            tank_trim: 0.0,
             density: 0.0,
         }
     );
@@ -57,10 +57,18 @@ export default function Differences(){
     };
     const handleChangeTankId = (id: string) => {
         setActiveTankId(id);
-        setForm({tankId: activeTankId()});
+        setForm({tank_id: activeTankId()});
     };
     const addDifference = async () => {
-        await invoke("add_difference",{difference: form});
+        await invoke(
+            "add_difference",{
+                tankId: form.tank_id,
+                tankHeight: form.tank_height,
+                tankTrim: form.tank_trim,
+                temperature: form.temperature,
+                density: form.density
+            }
+        );
         refetch();
     };
 

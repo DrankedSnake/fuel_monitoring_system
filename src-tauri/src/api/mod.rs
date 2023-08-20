@@ -18,6 +18,7 @@ pub use vessels::{
 pub use differences::{
     add_difference,
     get_differences,
+    get_daily_differences_for_current_month,
 };
 pub use profiles::{
     get_tank_profiles,

@@ -31,6 +31,13 @@ entity Consumer{
     type: ConsumerType,
     vessel_id: UUID,
 }
+entity DailyDifference {
+    id: String,
+    vessel_id: String,
+    volume: double,
+    mass: double,
+    date: DateTime,
+}
 enum ConsumerType{
     Engine,
     Generator,
@@ -41,4 +48,5 @@ Tank }|-|| Vessel
 Difference ||-down-|| DifferenceType
 Consumer ||--|| ConsumerType
 Vessel ||--|{ Consumer
+Vessel ||--|{DailyDifference
 @enduml

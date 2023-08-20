@@ -1,0 +1,22 @@
+@startuml Api Management
+
+title High Level Architecture
+
+actor User
+
+rectangle Laptop{
+    database DB
+    rectangle SolidJsServer
+    rectangle API
+    rectangle Browser
+
+    User --> Browser: interaction
+        Browser --> SolidJsServer: go to url
+            SolidJsServer -> API: call in IPC protocol for CRUD
+                API -> DB: CRUD operations
+                API <- DB: result
+            SolidJsServer <- API: response in serialized objects
+        Browser <-- SolidJsServer: render new screen
+    User <-- Browser: response from system
+}
+@enduml

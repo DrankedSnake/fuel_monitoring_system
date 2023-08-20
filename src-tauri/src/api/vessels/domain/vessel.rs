@@ -9,7 +9,7 @@ use super::super::super::fms_core::AbstractModel;
 
 
 #[derive(Queryable, Selectable, Insertable)]
-#[diesel(table_name = super::schema)]
+#[diesel(table_name = super::super::infrastructure::schema)]
 #[diesel(check_for_backend(diesel::pg::Pg))]
 #[derive(Serialize, Deserialize, Debug)]
 pub struct Vessel {

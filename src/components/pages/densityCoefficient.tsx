@@ -1,4 +1,4 @@
-import { Show, createResource, createSignal } from "solid-js"
+import { Show, createResource } from "solid-js"
 import Title from "../title"
 import Table from "../table/table"
 import UploadFileModal from "../modals/uploadFileModal"
@@ -40,6 +40,7 @@ export default function DensityCoefficient(){
         // TODO: refactor component using latest changes in forms inputs buttons and navigation items
         <div class="screen-container">
             <Title value="Density coefficients"/>
+
             <Show when={densityCoefficients()} fallback={<p>Loading...</p>}>
                 <Table records={densityCoefficients()} headers={["temperature", "density", "coefficient"]}/>
             </Show>

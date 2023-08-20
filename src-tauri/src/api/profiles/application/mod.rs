@@ -1,5 +1,5 @@
 mod handlers;
-mod tank_profiles_service;
+pub mod service;
 
 pub use handlers::{
     get_tank_profiles,

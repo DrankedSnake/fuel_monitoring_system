@@ -15,6 +15,7 @@ use api::{
     get_density_coefficients,
     add_difference,
     get_differences,
+    get_daily_differences_for_current_month,
     get_tankers,
 };
 
@@ -35,6 +36,7 @@ fn main() {
             get_density_coefficients,
             add_difference,
             get_differences,
+            get_daily_differences_for_current_month,
             get_tankers,
         ])
         .run(tauri::generate_context!())

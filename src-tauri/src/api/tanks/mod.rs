@@ -1,4 +1,5 @@
-mod application;
+pub mod application;
+pub mod domain;
 mod infrastructure;
 
 pub use application::{

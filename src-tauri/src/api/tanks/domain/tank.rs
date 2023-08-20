@@ -9,7 +9,7 @@ use super::super::super::fms_core::AbstractModel;
 
 
 #[derive(Queryable, Selectable, Insertable)]
-#[diesel(table_name = super::schema)]
+#[diesel(table_name = super::super::infrastructure::schema)]
 #[diesel(check_for_backend(diesel::pg::Pg))]
 #[derive(Serialize, Deserialize, Debug)]
 pub struct Tank {
@@ -47,6 +47,13 @@ impl Tank {
             fuel_type: Self::parse_string(data.get("fuel_type")),
             tank_type: Self::parse_string(data.get("tank_type")),
         }
+    }
+
+    pub fn update(&mut self, volume: f64, density: f64, coefficient: f64){
+        self.previous_volume = self.current_volume;
+        self.previous_mass = self.current_mass;
+        self.current_volume = volume;
+        self.current_mass = volume * density * coefficient
     }
 }
 

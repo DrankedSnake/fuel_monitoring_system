@@ -10,14 +10,14 @@ use super::super::super::fms_core::AbstractModel;
 
 
 #[derive(Queryable, Selectable, Insertable)]
-#[diesel(table_name = super::schema)]
+#[diesel(table_name = super::super::infrastructure::schema)]
 #[diesel(check_for_backend(diesel::pg::Pg))]
 #[derive(Serialize, Deserialize, Debug)]
 pub struct DensityCoefficient{
-    id: String,
-    temperature: f64,
-    density: f64,
-    coefficient: f64,
+    pub id: String,
+    pub temperature: f64,
+    pub density: f64,
+    pub coefficient: f64,
 }
 impl DensityCoefficient{
     pub fn from_map(data: HashMap<String, Value>) -> Self{

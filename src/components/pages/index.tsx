@@ -4,6 +4,7 @@ import Tanks from "./tanks"
 import TankProfile from "./tankProfile"
 import Vessels from "./vessels"
 import DensityCoefficient from "./densityCoefficient"
+import Dashboard from "./dashboard"
 
 
-export {Tankers, Differences, Tanks, TankProfile, Vessels, DensityCoefficient}
+export {Dashboard, Tankers, Differences, Tanks, TankProfile, Vessels, DensityCoefficient}
