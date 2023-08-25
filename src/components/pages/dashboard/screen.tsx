@@ -1,12 +1,13 @@
 import { createResource, createSignal } from "solid-js";
-import Title from "../title";
-import Table from "../table/table";
-import DropDownMenu from "../dropDownMenu/dropDownMenu";
+import Title from "../../title";
+import Table from "../../table/table";
+import DropDownMenu from "../../dropDownMenu/dropDownMenu";
 import { invoke } from "@tauri-apps/api";
-import { NavigationItems } from "../../data";
+import { NavigationItems } from "../../../data";
+import { DailyDifferencesChart } from ".";
 
 
-const getDifferences = async (vesselId: string)=> {
+const getDifferences = async (vesselId: string) => {
     if (vesselId){
         return await invoke("get_daily_differences_for_current_month", {"vesselId":vesselId} )
     }
@@ -24,7 +25,6 @@ export default function Dashboard(){
         setActiveVesselId(id);
     };
 
-
     return (
         <div class="screen-container">
             <DropDownMenu 
@@ -35,6 +35,7 @@ export default function Dashboard(){
                 placeholder="Select vessel..."
             />
             <Title value="Dashboard"/>
+            <DailyDifferencesChart data={differences()}/>
             <Table 
                 records={differences()} 
                 headers={NavigationItems().filter(
@@ -43,4 +44,4 @@ export default function Dashboard(){
             />
         </div>
     )
-}
+};

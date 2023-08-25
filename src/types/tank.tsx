@@ -1,0 +1,15 @@
+export type Tank = {
+    id: string,
+    vessel_id: string,
+    name: string,
+    full_volume: number,
+    current_volume: number,
+    safe_volume: number,
+    previous_volume: number,
+    current_mass: number,
+    previous_mass: number,
+    fuel_type: string,
+    tank_type: string,
+    change_24_volume: number,
+    bunkering_volume: number,
+}

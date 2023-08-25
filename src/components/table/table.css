@@ -1,18 +1,15 @@
-.board{
-    width: 1500px;
-    box-shadow: 0 5px 20px rgba(0, 0, 0, 0.80);
-    border-radius: 10px;
-}
-
 table {
     display: block;
     border-collapse: collapse;
-    height: 800px;
+    height: 750px;
     width: 100%;
     overflow-y: scroll;
     overflow-x: scroll;
-    margin: 30px 0 30px 30px;
+    margin: 30px 0 10px 30px;
     background: #fff;
+    width: 1500px;
+    box-shadow: 0 5px 20px rgba(0, 0, 0, 0.80);
+    border-radius: 10px;
 }
 
 thead tr {

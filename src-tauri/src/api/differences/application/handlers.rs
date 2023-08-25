@@ -1,3 +1,5 @@
+use log_derive::logfn;
+
 use super::differences_service::DifferencesService;
 use super::daily_differences_service::DailyDifferencesService;
 use crate::api::tanks::application::service::TankService;
@@ -10,6 +12,7 @@ use super::super::domain::{
 };
 
 
+#[logfn(Trace)]
 #[tauri::command]
 pub fn add_difference(tank_id: String, tank_height: String, tank_trim: String, temperature: String, density: String) -> Difference{
     let mut tank = TankService::get_tank_by_id(tank_id);
@@ -43,11 +46,13 @@ pub fn add_difference(tank_id: String, tank_height: String, tank_trim: String, t
     difference
 }
 
+#[logfn(Trace)]
 #[tauri::command]
 pub fn get_differences(tank_id: String) -> Vec<Difference>{
     DifferencesService::get_differences(tank_id)
 }
 
+#[logfn(Trace)]
 #[tauri::command]
 pub fn get_daily_differences_for_current_month(vessel_id: String) -> Vec<DailyDifference>{
     DailyDifferencesService::get_daily_differences_for_current_month(vessel_id)

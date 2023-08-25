@@ -6,7 +6,7 @@ use uuid::Uuid;
 use crate::api::fms_core::AbstractModel;
 
 use super::Difference;
-use crate::api::tanks::domain::Tank;
+use crate::api::tanks::Tank;
 
 
 #[derive(Queryable, Selectable, Insertable, AsChangeset)]

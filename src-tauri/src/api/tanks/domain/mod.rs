@@ -1,3 +1,3 @@
 mod tank;
 
-pub use tank::Tank;
+pub use tank::TankDomain;

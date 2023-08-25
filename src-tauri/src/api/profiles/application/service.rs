@@ -1,6 +1,7 @@
 use std::collections::HashMap;
 
 use csv::Reader;
+use log_derive::{logfn, logfn_inputs};
 use serde_json::Value;
 
 use super::super::infrastructure::TankProfilesRepository;
@@ -9,6 +10,7 @@ use super::super::domain::TankProfile;
 
 pub struct TankProfileService;
 impl TankProfileService{
+    #[logfn(Trace)]
     pub fn create_tank_profiles_from_csv_file(file_path: String, tank_id: &str){
         let mut reader = Reader::from_path(file_path).expect("No such file found.");
         let headers = reader.headers().unwrap().clone();
@@ -44,6 +46,7 @@ impl TankProfileService{
         }
     }
 
+    #[logfn(Trace)]
     pub fn get_tank_profile_by_height_and_trim( 
         tank_id: String, height: f64, trim: f64
     ) -> TankProfile{
@@ -52,16 +55,19 @@ impl TankProfileService{
         )
     }
 
+    #[logfn(Trace)]
     pub fn add_tank_profile(data: HashMap<String, Value>) -> TankProfile {
         TankProfilesRepository::insert_tank_profile(
             TankProfile::from_map(data)
         )
     }
 
+    #[logfn_inputs(INFO, fmt = "Searching profiles for tank {}")]
     pub fn get_tank_profiles(tank_id: String) -> Vec<TankProfile> {
         TankProfilesRepository::select_tank_profiles(tank_id)
     }
 
+    #[logfn(Trace)]
     pub fn get_tank_profile(tank_id: String, height: f64, trim: f64) -> TankProfile {
         TankProfilesRepository::select_tank_profile(
             tank_id, height, trim

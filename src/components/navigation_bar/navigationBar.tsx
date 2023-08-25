@@ -9,7 +9,7 @@ export default function NavigationBar(){
         <Show when={NavigationItems()} fallback={<p>No items in menu</p>}>
             <section id="menu">
                 <div class="logo">
-                    <img src="./static/logo.png" alt="" />
+                    {/* <img src="./static/logo.png" alt="" /> */}
                 </div>
                 <div class="items">
                     <For each={Object.values(NavigationItems())}>

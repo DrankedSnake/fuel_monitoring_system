@@ -4,15 +4,18 @@ skinparam linetype ortho
 entity Tank{
     id: Str,
     name: Str,
-    available_volume: double,
+    vessel_id: Str,
+    full_volume: double,
     current_volume: double,
     previous_volume: double,
     safe_volume: double,
-    vessel_id: Str,
-}
-enum DifferenceType{
-    Bunkering,
-    Consumption,
+    current_mass: double,
+    previous_mass: double,
+    bunkering_volume: double,
+    change_24_volume: double,
+    tank_type: Str,
+    fuel_type: Str,
+    correction_type: CorrectionType,
 }
 entity Difference{
     id: UUID,
@@ -24,6 +27,7 @@ entity Difference{
 entity Vessel{
     id: UUID,
     name: Str,
+    year: int,
 }
 entity Consumer{
     id: UUID,
@@ -32,21 +36,51 @@ entity Consumer{
     vessel_id: UUID,
 }
 entity DailyDifference {
-    id: String,
-    vessel_id: String,
+    id: UUID,
+    vessel_id: UUID,
     volume: double,
     mass: double,
     date: DateTime,
+}
+entity DifferenceDetails {
+    id: UUID,
+    daily_difference_id: UUID
+    consumer_id: UUID
+    time: double
+}
+entity TankProfile {
+    id: UUID,
+    tank_id: UUID,
+    volume: double,
+    trim: double,
+}
+entity DensityCoefficient {
+    id: UUID,
+    density: double,
+    temperature: double,
+    coefficient: double,
+}
+entity HeightCorrection {
+    id: UUID,
+    trim: double,
+    correction: double,
 }
 enum ConsumerType{
     Engine,
     Generator,
 }
-
-Difference }|-|| Tank
+enum CorrectionType{
+    Height,
+    Trim,
+}
+Difference }|--|| Tank
 Tank }|-|| Vessel
-Difference ||-down-|| DifferenceType
+Tank ||--|| CorrectionType
+Tank ||-down--|{ TankProfile
+Tank ||--|{ HeightCorrection
 Consumer ||--|| ConsumerType
-Vessel ||--|{ Consumer
+Vessel ||-right-|{ Consumer
 Vessel ||--|{DailyDifference
+DailyDifference ||--o{ DifferenceDetails
+DailyDifference ||--|{ Difference
 @enduml

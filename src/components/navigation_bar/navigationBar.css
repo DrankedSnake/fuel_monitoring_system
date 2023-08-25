@@ -6,7 +6,6 @@
     top: 0;
     left: 0;
 }
-
 #menu .items li{
     list-style: none;
     padding: 15px 0;
@@ -17,9 +16,9 @@
     background: #253047;
     cursor: pointer;
 }
-#menu .items li:nth-child(1){
+/* #menu .items a:nth-child(1){
     border-left: 4px solid #fff;
-}
+} */
 
 #menu .items li i{
     color: rgb(134, 141, 151);
@@ -42,3 +41,9 @@
     font-weight: 300px;
     transition:  0.3s ease;
 }
+#menu .items a,
+#menu .items a:visited, 
+#menu .items a:hover, 
+#menu .items a:active {
+    color: inherit;
+    }

@@ -1,12 +1,14 @@
 use diesel::query_dsl::methods::FilterDsl;
 use diesel::{QueryDsl, insert_into, ExpressionMethods, SelectableHelper, RunQueryDsl, update};
+use log_derive::logfn;
 
 use super::super::super::fms_core::establish_connection;
-use super::super::domain::Tank;
+use super::Tank;
 use super::schema::dsl;
 
 pub struct TanksRepository;
 impl TanksRepository{
+    #[logfn(Trace)]
     pub fn select_tanks(tank_vessel_id: String) -> Vec<Tank>{
         let connection = &mut establish_connection();
         let tanks = FilterDsl::filter(dsl::tank, dsl::vessel_id.eq(tank_vessel_id))
@@ -15,6 +17,7 @@ impl TanksRepository{
         tanks
     }
 
+    #[logfn(Trace)]
     pub fn insert_tank(tank: Tank) -> Tank{
         let connection = &mut establish_connection();
         
@@ -24,6 +27,7 @@ impl TanksRepository{
         result
     }
 
+    #[logfn(Trace)]
     pub fn select_tank(id: String) -> Tank {
         let connection = &mut establish_connection();
         let result = FilterDsl::filter(dsl::tank, dsl::id.eq(id))
@@ -32,6 +36,7 @@ impl TanksRepository{
         result
     }
 
+    #[logfn(Trace)]
     pub fn update_tank(updated_tank: Tank) -> Tank {
         let connection = &mut establish_connection();
         

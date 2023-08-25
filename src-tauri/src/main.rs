@@ -1,6 +1,8 @@
 // #![cfg_attr(not(debug_assertions), windows_subsystem = "windows")]
 mod api;
 
+use std::{path::PathBuf, str::FromStr};
+
 use api::{
     get_tanks, 
     add_tank,
@@ -18,10 +20,15 @@ use api::{
     get_daily_differences_for_current_month,
     get_tankers,
 };
+use tauri_plugin_log::LogTarget;
 
 
 fn main() {
     tauri::Builder::default()
+        .plugin(
+            tauri_plugin_log::Builder::default().target(
+                LogTarget::Folder(PathBuf::from_str("/home/nikita/.fms/logs").unwrap())
+            ).build())
         .invoke_handler(tauri::generate_handler![
             get_tanks,
             add_tank,

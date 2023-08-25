@@ -1,13 +1,14 @@
 import { invoke } from "@tauri-apps/api";
-import { createResource, createSignal } from "solid-js";
+import { For, Show, createResource, createSignal } from "solid-js";
 
-import Title from "../title";
-import Table from "../table/table";
+import Title from "../../title";
+import Table from "../../table/table";
 import { createStore } from "solid-js/store";
-import { AddRecordModal } from "../modals";
-import DropDownMenu from "../dropDownMenu/dropDownMenu";
-import { InputField } from "../inputField";
-import { FuelType, NavigationItems, TankType } from "../../data";
+import { AddRecordModal } from "../../modals";
+import DropDownMenu from "../../dropDownMenu/dropDownMenu";
+import { InputField } from "../../inputField";
+import { FuelType, NavigationItems, TankType } from "../../../data";
+import TanksChart from "./tanksChart";
 
 const getVessels = async ()  => {
     return await invoke("get_vessels");
@@ -16,6 +17,7 @@ const getVessels = async ()  => {
 type Vessel = {
     id: string,
     name: string,
+    year: number,
 }
 
 export default function Tanks(){
@@ -77,6 +79,7 @@ export default function Tanks(){
                 setSignalCallback={handleChangeVessel}
                 placeholder="Select vessel..."
             />
+            <TanksChart tanks={tanks()}/>
             <Table records={tanks()} 
                 headers={
                     NavigationItems()

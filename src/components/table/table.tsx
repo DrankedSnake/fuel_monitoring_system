@@ -2,10 +2,12 @@ import "./table.css";
 
 import { For, Show } from "solid-js";
 import Record from "./record";
+import Pagination from "./paggination";
 
 
 export default function Table(props: any){
         return (
+            <div>
             <table class="board">
                 <thead class="table-header">
                     <tr>
@@ -33,5 +35,7 @@ export default function Table(props: any){
                     </Show>
                 </tbody>
             </table>
+            <Pagination/>
+            </div>
         )
 }

@@ -58,12 +58,14 @@ const NavigationItems = () => {
                     "name",
                     "current_mass",
                     "previous_mass",
-                    "fuel_type",
-                    "tank_type",
                     "full_volume",
                     "safe_volume",
-                    "previous_volume",
                     "current_volume",
+                    "fuel_type",
+                    "tank_type",
+                    "previous_volume",
+                    "change_24_volume",
+                    "bunkering_volume",
                 ]
             }
         },
