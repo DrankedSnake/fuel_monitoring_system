@@ -7,8 +7,9 @@ import { createStore } from "solid-js/store";
 import { AddRecordModal } from "../../modals";
 import DropDownMenu from "../../dropDownMenu/dropDownMenu";
 import { InputField } from "../../inputField";
-import { FuelType, NavigationItems, TankType } from "../../../data";
+import { FuelType, NavigationItems, TankCorrectionType, TankType } from "../../../data";
 import TanksChart from "./tanksChart";
+import { Tank } from "../../../types";
 
 const getVessels = async ()  => {
     return await invoke("get_vessels");
@@ -28,7 +29,7 @@ export default function Tanks(){
         }    
     }
     const [vessels] = createResource<Array<Vessel>>(getVessels);
-    const [tanks, {refetch, mutate}] = createResource<Array>(activeVessel, getTanks);
+    const [tanks, {refetch, mutate}] = createResource<Array<Tank>>(activeVessel, getTanks);
  
 
     const addTank = async (tank: any) => {
@@ -49,7 +50,7 @@ export default function Tanks(){
             "vessel_id": "",
             "fuel_type": "",
             "tank_type": "",
-            
+            "tank_correction_type": "",
         }
     );
 
@@ -68,7 +69,6 @@ export default function Tanks(){
         setActiveVessel(id);
         setForm({vessel_id: activeVessel()});
     };
-
     return (
         <div class="screen-container">
             <Title value="Tanks"/>
@@ -113,7 +113,7 @@ export default function Tanks(){
                 />
                 <InputField
                     labelText="Safe volume" 
-                    placeholder="Enter safe volume..."
+                    placeholder="Enter coefficient 0.8 or percents 80..."
                     type="number" 
                     id="safe_volume" 
                     name="safe_volume" 
@@ -156,6 +156,13 @@ export default function Tanks(){
                     identifyValueKey="id"
                     setSignalCallback={(tankType: string)=>{setForm({tank_type: tankType})}}
                     placeholder="Select tank type..."
+                />
+                <DropDownMenu
+                    items={TankCorrectionType()}
+                    displayValueKey="name"
+                    identifyValueKey="id"
+                    setSignalCallback={(tankCorrectionType: string)=>{setForm({tank_correction_type: tankCorrectionType})}}
+                    placeholder="Select tank correction type..."
                 />
             </AddRecordModal>
         </div>

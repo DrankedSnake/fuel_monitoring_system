@@ -8,13 +8,20 @@ export default function NavigationBar(){
     return (
         <Show when={NavigationItems()} fallback={<p>No items in menu</p>}>
             <section id="menu">
-                <div class="logo">
-                    {/* <img src="./static/logo.png" alt="" /> */}
+                <div class="icon">
+                    <img src="src/icons/menu.png" alt="" />
+                    <i>FMS</i>
                 </div>
                 <div class="items">
                     <For each={Object.values(NavigationItems())}>
                         {(item) => (
-                            <BarItem title={item.item.title} path={item.item.path}>Some</BarItem>
+                            <BarItem 
+                                title={item.item.title} 
+                                path={item.item.path}
+                                icon={item.item.icon}
+                            >
+                                Some
+                            </BarItem>
                         )}
                     </For>
                 </div>

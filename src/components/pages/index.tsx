@@ -5,6 +5,15 @@ import TankProfile from "./tankProfile"
 import Vessels from "./vessels"
 import DensityCoefficient from "./densityCoefficient"
 import Dashboard from "./dashboard/screen"
+import HeightCorrections from "./heightCorrections"
 
-
-export {Dashboard, Tankers, Differences, Tanks, TankProfile, Vessels, DensityCoefficient}
+export {
+    Dashboard,
+    Tankers,
+    Differences,
+    Tanks,
+    TankProfile,
+    Vessels,
+    DensityCoefficient,
+    HeightCorrections
+}

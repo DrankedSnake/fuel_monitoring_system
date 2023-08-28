@@ -22,8 +22,8 @@ pub struct DailyDifference{
 }
 impl DailyDifference {
     pub fn update(&mut self, difference: &Difference){
-        self.volume += difference.volume;
-        self.mass += difference.mass;     
+        self.volume = Self::round_f64(self.volume + difference.volume);
+        self.mass = Self::round_f64(self.mass + difference.mass);     
     }
 
     pub fn from_tank_and_difference(tank: &Tank, difference: &Difference) -> Self{

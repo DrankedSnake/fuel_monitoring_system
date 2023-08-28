@@ -17,13 +17,13 @@ thead tr {
     color: rgb(134, 141, 151);
     font-size: 14px;
     font-weight: bold;
+    position: relative;
 }
 
 thead td{
     text-transform: uppercase;
-    /* font-weight: 400; */
     padding: 10px 50px 10px 50px;
-    width: 100%;
+    width: 10%;
 }
 
 tbody tr {

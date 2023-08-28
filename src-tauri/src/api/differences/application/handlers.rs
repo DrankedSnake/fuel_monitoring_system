@@ -16,6 +16,11 @@ use super::super::domain::{
 #[tauri::command]
 pub fn add_difference(tank_id: String, tank_height: String, tank_trim: String, temperature: String, density: String) -> Difference{
     let mut tank = TankService::get_tank_by_id(tank_id);
+
+    // TODO: check correction type of tank
+    //   1. if correction type trim get profile like always
+    //   2. if correction type height get correction first and calculate correction height
+    //   3. provide another method which will get profile by tank_id and corrected height
     let tank_profile = TankProfileService::get_tank_profile_by_height_and_trim(
         tank.id.clone(), 
         tank_height.replace("\"", "").parse::<f64>().unwrap(),

@@ -6,10 +6,11 @@ export default function BarItem(props: any){
         <>
             <a class="item" href={props.path}>
                 <li>
+                    <img class="icon" src={props.icon}/>
                     <i class={props.title}>
-
+                        {props.title}
                     </i>
-                    {props.title}
+                    
                 </li>
             </a>
         </>

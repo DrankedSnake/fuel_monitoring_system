@@ -25,7 +25,10 @@ impl DensityCoefficientsRepository {
         let connection = &mut establish_connection();
         let result = density_coefficient
             .select(DensityCoefficient::as_select())
-            .load(connection).expect("Error during selecting density");
+            .limit(15)
+            .offset(0)
+            .load(connection)
+            .expect("Error during selecting density");
         result
     }
     

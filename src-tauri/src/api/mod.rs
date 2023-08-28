@@ -5,7 +5,7 @@ mod differences;
 mod profiles;
 mod densities;
 mod tankers;
-
+mod corrections;
 
 pub use tanks::{
     get_tanks,
@@ -32,3 +32,6 @@ pub use densities::{
     get_density_coefficients,
 };
 pub use tankers::get_tankers;
+pub use corrections::{
+    get_tank_corrections,
+};

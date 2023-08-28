@@ -19,6 +19,7 @@ use api::{
     get_differences,
     get_daily_differences_for_current_month,
     get_tankers,
+    get_tank_corrections,
 };
 use tauri_plugin_log::LogTarget;
 
@@ -45,6 +46,7 @@ fn main() {
             get_differences,
             get_daily_differences_for_current_month,
             get_tankers,
+            get_tank_corrections,
         ])
         .run(tauri::generate_context!())
         .expect("error while running tauri application");

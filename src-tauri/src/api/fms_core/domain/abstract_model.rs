@@ -28,5 +28,9 @@ pub trait AbstractModel {
         };
         value
     }
+
+    fn round_f64(value: f64) -> f64{
+        format!("{:.4}", value).parse::<f64>().unwrap()
+    }
 }
 

@@ -24,6 +24,7 @@ pub struct Tank {
     pub previous_mass: f64,
     pub fuel_type: String,
     pub tank_type: String,
+    pub correction_type: String,
 }
 
 impl Tank {
@@ -31,7 +32,7 @@ impl Tank {
         let mut safe_volume = Self::parse_f64(data.get("safe_volume"));
 
         if safe_volume > 1.0{
-            safe_volume /= 100.0;
+            safe_volume = Self::round_f64(safe_volume / 100.0);
         }
 
         Self { 
@@ -46,6 +47,7 @@ impl Tank {
             previous_mass: Self::parse_f64(data.get("previous_mass")),
             fuel_type: Self::parse_string(data.get("fuel_type")),
             tank_type: Self::parse_string(data.get("tank_type")),
+            correction_type: Self::parse_string(data.get("tank_correction_type")),
         }
     }
 
@@ -53,8 +55,7 @@ impl Tank {
         self.previous_volume = self.current_volume;
         self.previous_mass = self.current_mass;
         self.current_volume = volume;
-        let current_mass_str = format!("{:.4}", volume * density * coefficient);
-        self.current_mass = current_mass_str.parse::<f64>().unwrap();
+        self.current_mass = Self::round_f64(volume * density * coefficient);
     }
 }
 

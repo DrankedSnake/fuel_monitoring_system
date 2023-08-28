@@ -9,6 +9,6 @@ body {
   width: calc(100% - 300px);
   margin-left: 300px;
   position: relative;
-  z-index: 2;
+  /* display: flex; */
 }
 

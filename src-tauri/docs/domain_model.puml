@@ -21,8 +21,8 @@ entity Difference{
     id: UUID,
     volume: doulbe,
     mass: doulbe,
-    type: DifferenceType,
     tank_id: UUID,
+    density_coefficient_id: UUID,
 }
 entity Vessel{
     id: UUID,
@@ -62,6 +62,7 @@ entity DensityCoefficient {
 }
 entity HeightCorrection {
     id: UUID,
+    tank_id: UUID,
     trim: double,
     correction: double,
 }
@@ -74,6 +75,7 @@ enum CorrectionType{
     Trim,
 }
 Difference }|--|| Tank
+Difference ||--|| DensityCoefficient
 Tank }|-|| Vessel
 Tank ||--|| CorrectionType
 Tank ||-down--|{ TankProfile

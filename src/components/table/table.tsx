@@ -15,7 +15,9 @@ export default function Table(props: any){
                             {
                                 (header: string)=>{
                                     return (
-                                        <td>{header.replace("_", " ")}</td>
+                                        <td>
+                                            {header.replace("_", " ")}
+                                        </td>
                                     )                            
                                 }
                             }

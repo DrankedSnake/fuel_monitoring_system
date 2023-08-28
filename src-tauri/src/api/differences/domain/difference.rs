@@ -42,8 +42,8 @@ impl Difference {
         Self {
             id: Uuid::new_v4().to_string(),
             tank_id: tank.id.to_string(),
-            volume: tank.previous_volume - tank.current_volume,
-            mass: tank.previous_mass - tank.current_mass,
+            volume: Self::round_f64(tank.previous_volume - tank.current_volume),
+            mass: Self::round_f64(tank.previous_mass - tank.current_mass),
             density_coefficient_id: density_coefficient.id.to_string(),
             date_created: Local::now(),
         }
