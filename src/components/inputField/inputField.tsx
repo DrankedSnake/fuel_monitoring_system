@@ -9,7 +9,9 @@ type InputFieldType = {
     onChange: any,
     required: string,
     labelText: string,
-    minValue: number,
+    min: string,
+    max: string,
+    step: string,
 };
 
 export default function InputField(props: InputFieldType){
@@ -21,7 +23,9 @@ export default function InputField(props: InputFieldType){
                 name={props.name} 
                 id={props.id} 
                 onChange={props.onChange}
-                required={props.required}
+                step={props.step}
+                min={props.min}
+                max={props.max}
             />
             <span>{props.labelText}</span>
         </div>

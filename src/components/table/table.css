@@ -1,15 +1,17 @@
+.board {
+    width: 92.5vw;
+}
 table {
     display: block;
     border-collapse: collapse;
     height: 750px;
-    width: 100%;
     overflow-y: scroll;
     overflow-x: scroll;
-    margin: 30px 0 10px 30px;
     background: #fff;
-    width: 1500px;
     box-shadow: 0 5px 20px rgba(0, 0, 0, 0.80);
     border-radius: 10px;
+    margin-right: 2.5vw;
+    margin-top: 3vh;
 }
 
 thead tr {
@@ -22,8 +24,8 @@ thead tr {
 
 thead td{
     text-transform: uppercase;
-    padding: 10px 50px 10px 50px;
-    width: 10%;
+    padding: 10px 40px 10px 40px;
+    width: 5%;
 }
 
 tbody tr {

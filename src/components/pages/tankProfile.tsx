@@ -1,4 +1,4 @@
-import { Show, createResource, createSignal } from "solid-js"
+import { createResource, createSignal } from "solid-js"
 import Title from "../title"
 import Table from "../table/table"
 import { invoke } from "@tauri-apps/api"
@@ -10,6 +10,7 @@ import {
 import DropDownMenu from "../dropDownMenu/dropDownMenu"
 import { InputField } from "../inputField"
 import { NavigationItems } from "../../data"
+import SearchForm from "../searchForm/searchForm"
 
 
 const getVessels = async () => {
@@ -27,11 +28,27 @@ export default function TankProfile(){
             return await invoke("get_tanks", {"vesselId": id});
         }    
     };
-    const getTankProfiles = async (tankId: string)=> {
+    const getTankProfiles = async ()=> {
         if (activeVessel() && activeTank()){
-            return await invoke("get_tank_profiles", {"tankId": tankId})
+            setForm({tank_id: activeTank()})
+            const amount = await getTankProfilesAmount()
+
+            setForm({pagination: {
+                ...form.pagination, total_amount: amount
+            }})
+            console.log(form.pagination)
+            return await invoke("get_tank_profiles", {searchForm: form})
         }
     };
+    const getTankProfilesAmount = async () => {
+        if (activeVessel() && activeTank()){
+            setForm({tank_id: activeTank()})
+
+            return await invoke("get_tank_profiles_amount", {searchForm: form})
+        }
+    };
+    const [profilesAmount] = createResource(getTankProfilesAmount);
+
     const [tanks] = createResource(activeVessel, getTanks);
     const [vessels] = createResource(getVessels);
     const [tankProfiles, {refetch}] = createResource(activeTank, getTankProfiles)
@@ -39,8 +56,14 @@ export default function TankProfile(){
         {
             tank_id: "",
             vessel_id: "",
-            tank_height: 0.0,
-            tank_volume: 0.0,
+            height: "",
+            volume: 0.0,
+            trim: "",
+            pagination: {
+                page: 1,
+                per_page: 15,
+                total_amount: 1,
+            }
         }
     );
     const [uploadForm, setUploadForm] = createStore(
@@ -59,7 +82,7 @@ export default function TankProfile(){
         setUploadForm(
             {
                 tankId: activeTank(),
-                filePath: `/home/nikita/Documents/${file.name}`
+                filePath: `/home/yuriy/Documents/${file.name}`
             }
         );
     };
@@ -80,7 +103,10 @@ export default function TankProfile(){
         setForm({
             [fieldName]: inputElement.value
         });
-    };    
+    };
+    const submitSearchForm = () => {
+        refetch();
+    };
 
     return (
         <div class="screen-container">
@@ -99,9 +125,22 @@ export default function TankProfile(){
                 setSignalCallback={handleChangeTank}
                 placeholder="Select tank..."
             />
+            <SearchForm 
+                fields={
+                    [
+                        {name: "height", type: "number", step: "0.001", min: "0"},
+                        {name: "trim", type: "number", step: "0.05", min: "-10", max: "10"},
+                    ]
+                }
+                formChangeCallback={updateFormField}
+                submitCallback={submitSearchForm}
+            />
             <Table 
                 records={tankProfiles()} 
                 headers={NavigationItems().filter(item => item.name === "tank_profiles")[0].item.tableHeaders}
+                pagination={form.pagination}
+                mutateSignal={setForm}
+                submitFormCallback={submitSearchForm}
             />
             <AddRecordModal 
                 buttonText="Add tank profile"

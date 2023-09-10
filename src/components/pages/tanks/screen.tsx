@@ -50,7 +50,6 @@ export default function Tanks(){
             "vessel_id": "",
             "fuel_type": "",
             "tank_type": "",
-            "tank_correction_type": "",
         }
     );
 
@@ -156,13 +155,6 @@ export default function Tanks(){
                     identifyValueKey="id"
                     setSignalCallback={(tankType: string)=>{setForm({tank_type: tankType})}}
                     placeholder="Select tank type..."
-                />
-                <DropDownMenu
-                    items={TankCorrectionType()}
-                    displayValueKey="name"
-                    identifyValueKey="id"
-                    setSignalCallback={(tankCorrectionType: string)=>{setForm({tank_correction_type: tankCorrectionType})}}
-                    placeholder="Select tank correction type..."
                 />
             </AddRecordModal>
         </div>

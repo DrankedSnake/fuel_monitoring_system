@@ -1,11 +1,12 @@
+use core::panic;
 use std::collections::HashMap;
 
 use csv::Reader;
-use log_derive::{logfn, logfn_inputs};
+use log_derive::logfn;
 use serde_json::Value;
 
 use super::super::infrastructure::TankProfilesRepository;
-use super::super::domain::TankProfile;
+use super::super::domain::{TankProfile, ProfileMeta};
 
 
 pub struct TankProfileService;
@@ -62,9 +63,21 @@ impl TankProfileService{
         )
     }
 
-    #[logfn_inputs(INFO, fmt = "Searching profiles for tank {}")]
-    pub fn get_tank_profiles(tank_id: String) -> Vec<TankProfile> {
-        TankProfilesRepository::select_tank_profiles(tank_id)
+    pub fn get_tank_profiles(data: HashMap<String, Value>) -> Vec<TankProfile> {
+        let profile_meta = ProfileMeta::from_map(data);
+        
+        if matches!(profile_meta.height, Option::None) && matches!(profile_meta.trim, Option::None){
+            return TankProfilesRepository::select_tank_profiles(profile_meta)
+        } else if matches!(profile_meta.height, Option::Some(f64)) && matches!(profile_meta.trim, Option::None) {
+            return TankProfilesRepository::select_tank_profiles_by_height(profile_meta)
+        } else if matches!(profile_meta.height, Option::None) && matches!(profile_meta.trim, Option::Some(f64)) {
+            return TankProfilesRepository::select_tank_profiles_by_trim(profile_meta)
+        } else if matches!(profile_meta.height, Option::Some(f64)) && matches!(profile_meta.trim, Option::Some(f64)) {
+            return TankProfilesRepository::select_tank_profiles_by_height_and_trim(profile_meta)
+        } else {
+            panic!("Exceptional case raised!")
+        }
+
     }
 
     #[logfn(Trace)]
@@ -72,5 +85,21 @@ impl TankProfileService{
         TankProfilesRepository::select_tank_profile(
             tank_id, height, trim
         )
+    }
+
+    pub fn get_tank_profiles_amount(data: HashMap<String, Value>) -> i64 {
+        let profile_meta = ProfileMeta::from_map(data);
+        
+        if matches!(profile_meta.height, Option::None) && matches!(profile_meta.trim, Option::None){
+            return TankProfilesRepository::select_tank_profiles_count(profile_meta)
+        } else if matches!(profile_meta.height, Option::Some(f64)) && matches!(profile_meta.trim, Option::None) {
+            return TankProfilesRepository::select_tank_profiles_by_height_count(profile_meta)
+        } else if matches!(profile_meta.height, Option::None) && matches!(profile_meta.trim, Option::Some(f64)) {
+            return TankProfilesRepository::select_tank_profiles_by_trim_count(profile_meta)
+        } else if matches!(profile_meta.height, Option::Some(f64)) && matches!(profile_meta.trim, Option::Some(f64)) {
+            return TankProfilesRepository::select_tank_profiles_by_height_and_trim_count(profile_meta)
+        } else {
+            panic!("Exceptional case raised!")
+        }
     }
 }

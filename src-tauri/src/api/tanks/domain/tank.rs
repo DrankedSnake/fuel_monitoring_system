@@ -17,7 +17,6 @@ pub struct TankDomain{
     pub previous_mass: f64,
     pub fuel_type: String,
     pub tank_type: String,
-    pub correction_type: String,
     pub change_24_volume: f64,
     pub bunkering_volume: f64,
 }
@@ -35,7 +34,6 @@ impl TankDomain {
             previous_mass: tank.previous_mass,
             fuel_type: tank.fuel_type,
             tank_type: tank.tank_type,
-            correction_type: tank.correction_type,
             change_24_volume: Self::round_f64(tank.previous_volume - tank.current_volume),
             bunkering_volume: Self::round_f64(tank.safe_volume - tank.current_volume),
         }

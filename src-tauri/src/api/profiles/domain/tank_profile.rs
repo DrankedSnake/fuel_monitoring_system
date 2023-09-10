@@ -16,8 +16,8 @@ pub struct TankProfile {
     pub id: String,
     pub tank_id: String,
     pub height: f64,
-    pub trim: f64,
     pub volume: f64,
+    pub trim: f64,
 }
 impl TankProfile {
     pub fn from_map(data: HashMap<String, Value>) -> Self{

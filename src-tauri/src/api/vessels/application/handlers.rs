@@ -1,6 +1,6 @@
 use std::collections::HashMap;
 
-use log_derive::{logfn, logfn_inputs};
+use log_derive::logfn;
 use serde_json::Value;
 
 use super::service::VesselService;

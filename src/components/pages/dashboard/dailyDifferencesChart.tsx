@@ -37,20 +37,28 @@ export default function DailyDifferencesChart(props: chartProps){
     
     
     const grapData = () => {
-        const day = Number(props.data[0].date.split('-')[2])
-
-        if (day > 1){
-            for (let index = 1; index < day; index++){
-                volumes.push(0);
-                masses.push(0);
+        if (props.data.length > 0){
+            const day = Number(props.data[0].date.split('-')[2])
+            if (day > 1){
+                for (let index = 1; index < day; index++){
+                    volumes.push(0);
+                    masses.push(0);
+                }
+            }
+            // TODO: describe case when we don't have record with daily difference in the middle of month and in the end
+            // TODO: if between dates exist spaces with no data we should set zeros for such dates
+            for (let index = 0; index < props.data.length; index++){            
+                volumes.push(props.data[index].volume);
+                masses.push(props.data[index].mass);
+            }
+            volumes.push(0);
+            masses.push(0);
+        } else {
+            for (let value = 0; value < dates.length; value++){
+                volumes.push(0)
+                masses.push(0)
             }
         }
-        for (let index = 0; index < props.data.length; index++){            
-            volumes.push(props.data[index].volume);
-            masses.push(props.data[index].mass);
-        }
-        volumes.push(0);
-        masses.push(0);
     }
 
     const mockData = {
@@ -89,7 +97,7 @@ export default function DailyDifferencesChart(props: chartProps){
     }
 
     return (
-        <div>
+        <div class="chart">
             <Show when={props.data} 
             fallback={
                 <Line data={mockData} options={chartOptions} width={500} height={500} />

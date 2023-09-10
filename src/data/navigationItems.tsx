@@ -1,6 +1,5 @@
 import { JSXElement } from "solid-js";
 import { Dashboard, DensityCoefficient, Differences, TankProfile, Tankers, Tanks, Vessels } from "../components";
-import { HeightCorrections } from "../components/pages";
 
 type ComponentCallback = (props: Object) => JSXElement;
 
@@ -46,16 +45,6 @@ const NavigationItems = () => {
             //         tableHeaders: [],
             //     }
         // },
-         {
-            name: "corrections",
-                item: {
-                    title: "Height corrections",
-                    path: "/height_corrections",
-                    component: HeightCorrections,
-                    tableHeaders: ["trim", "correction"],
-                    icon: "src/icons/height.png"
-                }
-        },
         {
             name: "differences",
             item: {

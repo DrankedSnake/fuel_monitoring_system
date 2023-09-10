@@ -1,5 +1,5 @@
 use chrono::NaiveDate;
-use diesel::{prelude::*, insert_into, update, upsert};
+use diesel::{prelude::*, insert_into, update};
 use diesel::query_dsl::methods::FilterDsl;
 
 use super::daily_schema::dsl;

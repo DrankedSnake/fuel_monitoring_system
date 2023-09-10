@@ -80,7 +80,7 @@ export default function TanksChart(props: TanksChartProps){
     }
     
     return (
-        <div>
+        <div class="chart">
             <Show 
                 when={props.tanks}
                 fallback={

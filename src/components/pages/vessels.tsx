@@ -61,7 +61,7 @@ export default function Vessels(){
                     type="text" 
                     name="vessel_year" 
                     id="vessel_year" 
-                    onChange={updateFormField("vessel_year")} 
+                    onChange={updateFormField("vessel_year")}
                 />
             </AddRecordModal>
         </div>

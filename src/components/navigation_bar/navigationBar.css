@@ -1,24 +1,31 @@
-#menu{
+.navigation-container{
     background: #111827;
     width: 300px;
-    height: 100%;
-    position: fixed;
+    height: 100vh;
+    position: relative;
     top: 0;
     left: 0;
 }
-#menu .items li{
+.navigation-container--collapsed {
+    width: var(--nav-icon-width);
+}
+.navigation-container--collapsed .item-label{
+    display: none;
+    transition: 0.3s ease;
+}
+.navigation-container .items li{
     list-style: none;
     padding: 15px 0;
     transition:  0.3s ease;
 }
 
-#menu .items li:hover{
+.navigation-container .items li:hover{
     background: #253047;
     cursor: pointer;
 }
 
 
-#menu .items li i{
+.navigation-container .items li i{
     color: rgb(134, 141, 151);
     width: 30px;
     height: 30px;
@@ -28,24 +35,24 @@
     margin: 0 10px 0 25px;
 }
 
-#menu .items li:hover i,
-#menu .items a li:hover {
+.navigation-container .items li:hover i,
+.navigation-container .items a li:hover {
     color: #f3f4f6;
 }
 
-#menu .items a li{
+.navigation-container .items a li{
     text-decoration: none;
     color: rgb(134, 141, 151);
     font-weight: 300px;
     transition:  0.3s ease;
 }
-#menu .items a,
-#menu .items a:visited, 
-#menu .items a:hover{
+.navigation-container .items a,
+.navigation-container .items a:visited, 
+.navigation-container .items a:hover{
     color: inherit;
 }
 
-#menu .items a:active li{
+.navigation-container .items a:active li{
     background-color: #f3f4f6;
 }
 

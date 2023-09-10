@@ -24,7 +24,6 @@ pub struct Tank {
     pub previous_mass: f64,
     pub fuel_type: String,
     pub tank_type: String,
-    pub correction_type: String,
 }
 
 impl Tank {
@@ -40,14 +39,13 @@ impl Tank {
             name: Self::parse_string(data.get("tank_name")), 
             full_volume: Self::parse_f64(data.get("full_volume")),
             current_volume: Self::parse_f64(data.get("current_volume")), 
-            safe_volume: Self::parse_f64(data.get("full_volume")) * safe_volume, 
+            safe_volume: Self::round_f64(Self::parse_f64(data.get("full_volume")) * safe_volume), 
             current_mass: Self::parse_f64(data.get("current_mass")),
             vessel_id: Self::parse_string(data.get("vessel_id")),
             previous_volume: Self::parse_f64(data.get("previous_volume")),
             previous_mass: Self::parse_f64(data.get("previous_mass")),
             fuel_type: Self::parse_string(data.get("fuel_type")),
             tank_type: Self::parse_string(data.get("tank_type")),
-            correction_type: Self::parse_string(data.get("tank_correction_type")),
         }
     }
 

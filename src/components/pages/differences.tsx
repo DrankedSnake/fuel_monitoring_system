@@ -72,7 +72,7 @@ export default function Differences(){
         refetch();
     };
 
-
+    
     return (
         <div class="screen-container">
             <DropDownMenu 

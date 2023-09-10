@@ -39,6 +39,7 @@ impl DensityCoefficient{
         for record in records {
             let record = record.unwrap();
             let mut index = 1;
+            
             while index < record.len(){
                 items.push(
                     Self{

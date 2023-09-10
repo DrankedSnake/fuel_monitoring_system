@@ -11,6 +11,5 @@ diesel::table! {
         previous_mass -> Double,
         fuel_type -> VarChar,
         tank_type -> VarChar,
-        correction_type -> VarChar,
     }
 }

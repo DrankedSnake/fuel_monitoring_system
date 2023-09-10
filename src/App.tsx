@@ -10,13 +10,13 @@ export default function App() {
     <div>
       <div id="container">
         <NavigationBar />
-        <Routes>
-          <For each={Object.values(NavigationItems())}>
-          {
-            (item) => (<Route path={item.item.path} component={item.item.component}/>)
-          }
-          </For>
-        </Routes>
+          <Routes>
+            <For each={Object.values(NavigationItems())}>
+            {
+              (item) => (<Route path={item.item.path} component={item.item.component}/>)
+            }
+            </For>
+          </Routes>
       </div>
     </div>
   )

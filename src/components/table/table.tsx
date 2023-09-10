@@ -2,13 +2,14 @@ import "./table.css";
 
 import { For, Show } from "solid-js";
 import Record from "./record";
-import Pagination from "./paggination";
+import Pagination from "./pagination";
+import { TableProps } from "../../types";
 
 
-export default function Table(props: any){
+export default function Table(props: TableProps){
         return (
-            <div>
-            <table class="board">
+            <div class="board">
+            <table>
                 <thead class="table-header">
                     <tr>
                         <For each={props.headers}>
@@ -23,7 +24,6 @@ export default function Table(props: any){
                             }
                         </For>
                     </tr>
-                    
                 </thead>
                 <tbody>
                     <Show when={props.records}>
@@ -37,7 +37,14 @@ export default function Table(props: any){
                     </Show>
                 </tbody>
             </table>
-            <Pagination/>
+            <Show when={props.pagination}>
+                <Pagination
+                    data={props.pagination}
+                    submitFormCallback={props.submitFormCallback}
+                    mutateSignal={props.mutateSignal}
+                />
+            </Show>
+            
             </div>
         )
 }
