@@ -1,3 +1,4 @@
+import { useForm } from "../validation";
 import "./inputField.css";
 
 
@@ -12,9 +13,22 @@ type InputFieldType = {
     min: string,
     max: string,
     step: string,
+    validator: Function,
 };
 
+
+const ErrorMessage = (props) => {
+    return (
+        <div class="error-message">{props.error}</div>
+    )
+};
+
+
 export default function InputField(props: InputFieldType){
+    const { validate, formSubmit, errors } = useForm({
+        errorClass: "error-input"
+    });
+    
     return (
         <div class="inputBox">
             <input 
@@ -26,8 +40,10 @@ export default function InputField(props: InputFieldType){
                 step={props.step}
                 min={props.min}
                 max={props.max}
+                use:validate={[props.validator]}
             />
             <span>{props.labelText}</span>
+            {errors[props.name] ? <ErrorMessage error={errors[props.name]}/> : <span></span> }
         </div>
     )
 }

@@ -19,7 +19,7 @@ export default function NavigationBar(){
         <Show when={NavigationItems()} fallback={<p>No items in menu</p>}>
             <div class={navigationClass()}>
                 <div class="application-menu" onclick={switchMenu}>
-                    <img src="src/icons/menu.png" alt="" />
+                    <img src="icons/menu.png" alt="" />
                     <span class="item-label">
                         <i>FMS</i>
                     </span>

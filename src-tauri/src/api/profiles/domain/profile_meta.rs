@@ -1,6 +1,6 @@
 use std::collections::HashMap;
 use rust_decimal::prelude::ToPrimitive;
-use serde_json::{Value, Number, Map};
+use serde_json::{Value, Map};
 
 use crate::api::fms_core::AbstractModel;
 
@@ -17,9 +17,7 @@ impl ProfileMeta {
     pub fn from_map(data: HashMap<String, Value>) -> Self{
         let pagination: &Map<String, Value> = Self::from_json_to_object(data.get("pagination"));
         let page = Self::from_number_to_i64(pagination.get("page"));
-        println!("BEFORE PER PAGE");
         let per_page = Self::from_number_to_i64(pagination.get("per_page"));
-        println!("AFTER PER PAGE");
 
         let height = {
             let value = Self::parse_string(data.get("height"));
@@ -40,8 +38,8 @@ impl ProfileMeta {
 
         Self { 
             tank_id: Self::parse_string(data.get("tank_id")),
-            height: height,
-            trim: trim,
+            height,
+            trim,
             offset: ((page - 1) * per_page).to_i64().unwrap(),
             limit: per_page.to_i64().unwrap(),
         }

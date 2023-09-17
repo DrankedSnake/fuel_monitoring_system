@@ -16,6 +16,7 @@ use api::{
     add_density_coefficient,
     add_density_coefficients,
     get_density_coefficients,
+    get_density_coefficient,
     add_difference,
     get_differences,
     get_daily_differences_for_current_month,
@@ -28,7 +29,7 @@ fn main() {
     tauri::Builder::default()
         .plugin(
             tauri_plugin_log::Builder::default().target(
-                LogTarget::Folder(PathBuf::from_str("/home/yuriy/.fms/logs").unwrap())
+                LogTarget::Folder(PathBuf::from_str("/home/nikita/.fms/logs").unwrap())
             ).build())
         .invoke_handler(tauri::generate_handler![
             get_tanks,
@@ -47,6 +48,7 @@ fn main() {
             get_daily_differences_for_current_month,
             get_tankers,
             get_tank_profiles_amount,
+            get_density_coefficient,
         ])
         .run(tauri::generate_context!())
         .expect("error while running tauri application");

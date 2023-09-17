@@ -8,7 +8,7 @@
   },
   "package": {
     "productName": "fuel_monitoring_system",
-    "version": "0.0.0"
+    "version": "1.0.3"
   },
   "tauri": {
     "allowlist": {
@@ -49,9 +49,10 @@
       {
         "fullscreen": false,
         "resizable": true,
-        "title": "fuel_monitoring_system",
+        "title": "FMS",
         "width": 1200,
-        "height": 900
+        "height": 900,
+        "label": "main"
       }
     ]
   }

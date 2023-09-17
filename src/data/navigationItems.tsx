@@ -1,13 +1,13 @@
-import { JSXElement } from "solid-js";
-import { Dashboard, DensityCoefficient, Differences, TankProfile, Tankers, Tanks, Vessels } from "../components";
+import { Component } from "solid-js";
+import { Dashboard, DensityCoefficient, Differences, TankProfile, Tanks, Vessels } from "../components";
 
-type ComponentCallback = (props: Object) => JSXElement;
 
 type Item = {
     title: string,
     path: string,
-    component: ComponentCallback,
+    component: Component,
     tableHeaders: Array<string>,
+    icon: string,
 };
 
 type ItemContainer = {
@@ -15,7 +15,7 @@ type ItemContainer = {
     item: Item,
 };
 
-const NavigationItems = () => {
+const NavigationItems = (): Array<ItemContainer> => {
     return [
         {
             name: "dashboard",
@@ -24,27 +24,9 @@ const NavigationItems = () => {
                 path: "/dashboard",
                 component: Dashboard,
                 tableHeaders: ["volume", "mass", "date"],
-                icon: "src/icons/dashboard.png"
+                icon: "icons/dashboard.png"
             }
         },
-        // {
-        //     name: "tankers",
-        //     item: {
-        //         title: "Tankers",
-        //         path: "/tankers",
-        //         component: Tankers,
-        //         tableHeaders: [],
-        //     }
-        // },
-        // {
-            // name: "cruises",
-            //     item: {
-            //         title: "Cruises",
-            //         path: "/cruises",
-            //         component: Cruises,
-            //         tableHeaders: [],
-            //     }
-        // },
         {
             name: "differences",
             item: {
@@ -56,7 +38,7 @@ const NavigationItems = () => {
                     "mass",
                     "date_created",
                 ],
-                icon: "src/icons/difference.png"
+                icon: "icons/difference.png"
             }
         },
         {
@@ -78,7 +60,7 @@ const NavigationItems = () => {
                     "change_24_volume",
                     "bunkering_volume",
                 ],
-                icon: "src/icons/tank.png"
+                icon: "icons/tank.png"
             }
         },
         {
@@ -92,7 +74,7 @@ const NavigationItems = () => {
                     "volume",
                     "trim",
                 ],
-                icon: "src/icons/profile.png"
+                icon: "icons/profile.png"
             }
         },
         {
@@ -105,7 +87,7 @@ const NavigationItems = () => {
                     "name", 
                     "year"
                 ],
-                icon: "src/icons/vessel.png"
+                icon: "icons/vessel.png"
             }
         },
         {
@@ -114,8 +96,8 @@ const NavigationItems = () => {
                 title: "Densities",
                 path: "/density_coefficients",
                 component: DensityCoefficient,
-                tableHeaders: ["height", "temperature", "density"],
-                icon: "src/icons/temperature.png"
+                tableHeaders: ["temperature", "density"],
+                icon: "icons/temperature.png"
             }
         },
     ];

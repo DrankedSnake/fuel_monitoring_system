@@ -1,5 +1,5 @@
 import { invoke } from "@tauri-apps/api";
-import { For, Show, createResource, createSignal } from "solid-js";
+import { createResource, createSignal } from "solid-js";
 
 import Title from "../../title";
 import Table from "../../table/table";
@@ -7,7 +7,7 @@ import { createStore } from "solid-js/store";
 import { AddRecordModal } from "../../modals";
 import DropDownMenu from "../../dropDownMenu/dropDownMenu";
 import { InputField } from "../../inputField";
-import { FuelType, NavigationItems, TankCorrectionType, TankType } from "../../../data";
+import { FuelType, NavigationItems, TankType } from "../../../data";
 import TanksChart from "./tanksChart";
 import { Tank } from "../../../types";
 
@@ -23,13 +23,14 @@ type Vessel = {
 
 export default function Tanks(){
     const [activeVessel, setActiveVessel] = createSignal<string>("");
+    const [activeWidget, setActiveWidget] = createSignal("chart")
     const getTanks = async (id: string) => {
         if (activeVessel()){
             return await invoke("get_tanks", {"vesselId": id});
         }    
     }
     const [vessels] = createResource<Array<Vessel>>(getVessels);
-    const [tanks, {refetch, mutate}] = createResource<Array<Tank>>(activeVessel, getTanks);
+    const [tanks, {refetch}] = createResource<Array<Tank>>(activeVessel, getTanks);
  
 
     const addTank = async (tank: any) => {

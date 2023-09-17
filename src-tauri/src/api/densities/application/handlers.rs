@@ -22,3 +22,10 @@ pub fn add_density_coefficient(density_coefficient: HashMap<String, Value>) -> D
 pub fn add_density_coefficients(file_path: &str) -> Vec<DensityCoefficient>{
     DensityCoefficientService::add_density_coefficients(file_path)
 }
+
+#[tauri::command]
+pub fn get_density_coefficient(temperature: String, density: String) -> Option<DensityCoefficient>{
+    let temperature = temperature.replace("\"", "").parse::<f64>().unwrap();
+    let density = density.replace("\"", "").parse::<f64>().unwrap();
+    DensityCoefficientService::get_density_coefficient(temperature, density)
+}

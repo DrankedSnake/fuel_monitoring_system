@@ -1,6 +1,6 @@
 use diesel::{prelude::*, insert_into};
 use diesel::query_dsl::methods::FilterDsl;
-use log_derive::logfn;
+use log_derive::{logfn, logfn_inputs};
 
 use super::super::super::fms_core::establish_connection;
 use super::schema;
@@ -72,8 +72,8 @@ impl TankProfilesRepository{
         tank_profiles
     }
 
-    #[logfn(Trace)]
-    pub fn select_tank_profile(profile_tank_id: String, fuel_height: f64, tank_trim: f64) -> TankProfile{
+    #[logfn_inputs(Trace)]
+    pub fn select_tank_profile(profile_tank_id: String, fuel_height: f64, tank_trim: f64) -> Option<TankProfile>{
         let connection = &mut establish_connection();
         let profile = FilterDsl::filter(
             schema::table,
@@ -82,7 +82,8 @@ impl TankProfilesRepository{
             .and(schema::trim.eq(tank_trim))
         )
         .select(TankProfile::as_select())
-        .get_result(connection).expect("Error during selecting tank profiles");
+        .get_result(connection).optional().unwrap();
+    
         profile
     }
 

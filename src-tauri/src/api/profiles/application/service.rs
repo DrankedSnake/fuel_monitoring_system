@@ -1,9 +1,11 @@
 use core::panic;
 use std::collections::HashMap;
+use std::io;
 
 use csv::Reader;
 use log_derive::logfn;
 use serde_json::Value;
+use log::{log, info};
 
 use super::super::infrastructure::TankProfilesRepository;
 use super::super::domain::{TankProfile, ProfileMeta};
@@ -11,14 +13,16 @@ use super::super::domain::{TankProfile, ProfileMeta};
 
 pub struct TankProfileService;
 impl TankProfileService{
-    #[logfn(Trace)]
-    pub fn create_tank_profiles_from_csv_file(file_path: String, tank_id: &str){
-        let mut reader = Reader::from_path(file_path).expect("No such file found.");
+    // #[logfn(Trace)]
+    #[logfn(err = "Error", fmt = "Failed insert profiles: {:?}")]
+    pub fn create_tank_profiles_from_csv_file(file_path: String, tank_id: &str) -> Result<(), io::Error>{
+        let mut reader = Reader::from_path(file_path)?;
+        info!("After reading the file");
         let headers = reader.headers().unwrap().clone();
         let records = reader.records();
         let empty_cell = String::from("");
         let mut profiles = Vec::new();
-
+        info!("After preparing variables");
         for record in records {
             let record = record.unwrap();
             let mut index = 1;
@@ -42,18 +46,11 @@ impl TankProfileService{
                 }
             }
         }
+        info!("After loop");
         if profiles.len() > 0 {
             TankProfilesRepository::insert_tank_profiles(profiles);
         }
-    }
-
-    #[logfn(Trace)]
-    pub fn get_tank_profile_by_height_and_trim( 
-        tank_id: String, height: f64, trim: f64
-    ) -> TankProfile{
-        TankProfilesRepository::select_tank_profile(
-            tank_id, height, trim
-        )
+        Ok(())
     }
 
     #[logfn(Trace)]
@@ -81,7 +78,7 @@ impl TankProfileService{
     }
 
     #[logfn(Trace)]
-    pub fn get_tank_profile(tank_id: String, height: f64, trim: f64) -> TankProfile {
+    pub fn get_tank_profile(tank_id: String, height: f64, trim: f64) -> Option<TankProfile> {
         TankProfilesRepository::select_tank_profile(
             tank_id, height, trim
         )

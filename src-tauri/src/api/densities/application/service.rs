@@ -28,7 +28,7 @@ impl DensityCoefficientService {
     }
 
     #[logfn(Trace)]
-    pub(crate) fn get_density_coefficient(temperature: f64, density: f64) -> DensityCoefficient {
+    pub fn get_density_coefficient(temperature: f64, density: f64) -> Option<DensityCoefficient> {
         DensityCoefficientsRepository::select_density_coefficient(
             temperature, density
         )

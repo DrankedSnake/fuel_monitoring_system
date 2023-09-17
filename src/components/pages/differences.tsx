@@ -23,12 +23,40 @@ export default function Differences(){
     const [activeVesselId, setActiveVesselId] = createSignal("");
     const [activeTankId, setActiveTankId] = createSignal("")
     const [differences, {refetch}] = createResource(activeTankId, getDifferences)
+    
     const getTanks = async (id: string) => {
         if (activeVesselId()){
             return await invoke("get_tanks", {"vesselId": id});
         }    
     };
+    const isProfileExists = async () => {
+        if (form.tank_height && form.tank_trim) {
+            const profile = await invoke(
+                "get_tank_profile", 
+                {tankId: form.tank_id, height: form.tank_height, trim: form.tank_trim}
+            )
+            
+            if (!profile){
+                return `Profile with ${form.tank_height} height or ${form.tank_trim} trim was not found.`;
+            } else {
+                return ""
+            }
+        }
+    }
+    const isDensityCoefficientExists =async () => {
+        if (form.temperature && form.density){
+            const coefficient = await invoke(
+                "get_density_coefficient",
+                {temperature: form.temperature, density: form.density}
+            )
 
+            if (!coefficient) {
+                return `Density coefficient with ${form.temperature} temperature or ${form.density} density was not found.`;
+            } else {
+                return ""
+            }
+        }
+    }
     const [tanks] = createResource(activeVesselId, getTanks);
     const [vessels] = createResource(getVessels);
 
@@ -38,7 +66,6 @@ export default function Differences(){
             tank_id: "",
             tank_height: 0.0,
             fuel_type: "",
-            difference_type: "",
             temperature: 0.0,
             tank_trim: 0.0,
             density: 0.0,
@@ -51,7 +78,6 @@ export default function Differences(){
             [fieldName]: inputElement.value
         });
     };
-
     const handleChangeVesselId = (id: string) => {
         setActiveVesselId(id);
     };
@@ -60,19 +86,19 @@ export default function Differences(){
         setForm({tank_id: activeTankId()});
     };
     const addDifference = async () => {
-        await invoke(
-            "add_difference",{
-                tankId: form.tank_id,
-                tankHeight: form.tank_height,
-                tankTrim: form.tank_trim,
-                temperature: form.temperature,
-                density: form.density
-            }
-        );
-        refetch();
+        if (form.tank_id && form.tank_height && form.tank_trim && form.temperature && form.density) {
+            await invoke(
+                "add_difference",{
+                    tankId: form.tank_id,
+                    tankHeight: form.tank_height,
+                    tankTrim: form.tank_trim,
+                    temperature: form.temperature,
+                    density: form.density
+                }
+            );
+            refetch();
+        }
     };
-
-    
     return (
         <div class="screen-container">
             <DropDownMenu 
@@ -102,23 +128,35 @@ export default function Differences(){
                     placeholder="Enter height..."
                     type="number" 
                     id="tank_height" 
-                    name="tank_height" 
-                    onChange={updateFormField("tank_height")} 
+                    name="tank_height"
+                    min="0"
+                    max="20"
+                    step="0.001"
+                    onChange={updateFormField("tank_height")}
                 />
                 <InputField
                     labelText="Trim"
                     placeholder="Enter trim..."
                     type="number" 
                     id="tank_trim" 
-                    name="tank_trim" 
+                    name="tank_trim"
+                    min="-3"
+                    max="3"
+                    step="0.5"
+                    required
                     onChange={updateFormField("tank_trim")} 
+                    validator={isProfileExists}
                 />
                 <InputField
                     labelText="Temperature"
                     placeholder="Enter temperature..."
                     type="number" 
                     id="temperature" 
-                    name="temperature" 
+                    name="temperature"
+                    min="10"
+                    max="90"
+                    step="1"
+                    required
                     onChange={updateFormField("temperature")} 
                 />
                 <InputField
@@ -126,8 +164,13 @@ export default function Differences(){
                     placeholder="Enter density..."
                     type="number" 
                     id="density" 
-                    name="density" 
-                    onChange={updateFormField("density")} 
+                    name="density"
+                    min="0.7"
+                    max="1"
+                    step="0.002"
+                    required
+                    onChange={updateFormField("density")}
+                    validator={isDensityCoefficientExists}
                 />
             </AddRecordModal>
         </div>

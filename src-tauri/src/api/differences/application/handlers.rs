@@ -17,15 +17,15 @@ use super::super::domain::{
 pub fn add_difference(tank_id: String, tank_height: String, tank_trim: String, temperature: String, density: String) -> Difference{
     let mut tank = TankService::get_tank_by_id(tank_id);
 
-    let tank_profile = TankProfileService::get_tank_profile_by_height_and_trim(
+    let tank_profile = TankProfileService::get_tank_profile(
         tank.id.clone(), 
         tank_height.replace("\"", "").parse::<f64>().unwrap(),
         tank_trim.replace("\"", "").parse::<f64>().unwrap(),
-    );
+    ).unwrap();
     let density_coefficient = DensityCoefficientService::get_density_coefficient(
         temperature.replace("\"", "").parse::<f64>().unwrap(),
         density.replace("\"", "").parse::<f64>().unwrap(),
-    );
+    ).unwrap();
     tank.update(tank_profile.volume, density_coefficient.density, density_coefficient.coefficient);
     tank = TankService::update_tank(tank);
 

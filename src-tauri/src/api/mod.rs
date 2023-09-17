@@ -30,5 +30,6 @@ pub use densities::{
     add_density_coefficient,
     add_density_coefficients,
     get_density_coefficients,
+    get_density_coefficient,
 };
 pub use tankers::get_tankers;
