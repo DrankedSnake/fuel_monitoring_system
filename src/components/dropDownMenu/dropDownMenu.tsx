@@ -8,7 +8,7 @@ type DropDownMenuProps = {
     identifyValueKey: string,
     setSignalCallback: Function,
     placeholder: string,
-    setStorageCallback: Function,
+    setStorageCallback?: Function,
 };
 
 

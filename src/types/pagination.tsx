@@ -6,7 +6,7 @@ export type PaginationData = {
 
 export type PaginationProps = {
     data: PaginationData
-    submitFormCallback: Func
+    submitFormCallback: Function
 };
 
 export type TableProps = {

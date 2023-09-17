@@ -5,7 +5,7 @@ use std::io;
 use csv::Reader;
 use log_derive::logfn;
 use serde_json::Value;
-use log::{log, info};
+use log::info;
 
 use super::super::infrastructure::TankProfilesRepository;
 use super::super::domain::{TankProfile, ProfileMeta};
