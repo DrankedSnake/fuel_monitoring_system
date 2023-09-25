@@ -36,7 +36,6 @@ export default function TankProfile(){
             setForm({pagination: {
                 ...form.pagination, total_amount: amount
             }})
-            console.log(form.pagination)
             return await invoke("get_tank_profiles", {searchForm: form})
         }
     };
@@ -47,7 +46,6 @@ export default function TankProfile(){
             return await invoke("get_tank_profiles_amount", {searchForm: form})
         }
     };
-    const [profilesAmount] = createResource(getTankProfilesAmount);
 
     const [tanks] = createResource(activeVessel, getTanks);
     const [vessels] = createResource(getVessels);
@@ -61,8 +59,8 @@ export default function TankProfile(){
             trim: "",
             pagination: {
                 page: 1,
-                per_page: 15,
-                total_amount: 1,
+                per_page: 17,
+                total_amount: 0,
             }
         }
     );
@@ -82,7 +80,7 @@ export default function TankProfile(){
         setUploadForm(
             {
                 tankId: activeTank(),
-                filePath: `/home/nikita/Documents/${file.name}`
+                filePath: `/home/yuriy/Documents/${file.name}`
             }
         );
     };

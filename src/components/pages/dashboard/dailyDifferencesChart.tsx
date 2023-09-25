@@ -21,13 +21,14 @@ export default function DailyDifferencesChart(props: chartProps){
 
     const date = new Date();
     let lastDay = new Date(date.getFullYear(), date.getMonth() + 1, 0);
-
-    let dateTemplate = `${date.getFullYear()}/${date.getMonth() + 1}/`
-    console.log(dateTemplate)
+    const month_int = date.getMonth() + 1;
+    const month_str = month_int > 10 ? `${month_int}` : `0${month_int}`
+    let dateTemplate = `${date.getFullYear()}-${month_str}-`
     let dates = [];
 
     let masses = [];
     let volumes = [];
+    let differences = {};
 
     for (let index=1; index <= lastDay.getDate(); index++){
         dates.push(
@@ -37,28 +38,26 @@ export default function DailyDifferencesChart(props: chartProps){
     
     
     const grapData = () => {
-        if (props.data.length > 0){
-            const day = Number(props.data[0].date.split('-')[2])
-            if (day > 1){
-                for (let index = 1; index < day; index++){
-                    volumes.push(0);
-                    masses.push(0);
-                }
+        dates.forEach(
+            date => {
+                differences[date] = {}
+                differences[date]["volume"] = 0
+                differences[date]["mass"] = 0
             }
-            // TODO: describe case when we don't have record with daily difference in the middle of month and in the end
-            // TODO: if between dates exist spaces with no data we should set zeros for such dates
-            for (let index = 0; index < props.data.length; index++){            
-                volumes.push(props.data[index].volume);
-                masses.push(props.data[index].mass);
-            }
-            volumes.push(0);
-            masses.push(0);
-        } else {
-            for (let value = 0; value < dates.length; value++){
-                volumes.push(0)
-                masses.push(0)
-            }
+        );
+        props.data.forEach(
+            difference => {
+                differences[difference.date]["volume"] = difference.volume
+                differences[difference.date]["mass"] = difference.mass
         }
+        );
+
+        dates.forEach(
+            date => {
+                volumes.push(differences[date]["volume"])
+                masses.push(differences[date]["mass"])
+            }
+        );
     }
 
     const mockData = {

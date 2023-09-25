@@ -6,4 +6,5 @@ pub use handlers::{
     add_density_coefficient,
     add_density_coefficients,
     get_density_coefficient,
+    get_density_coefficients_amount,
 };

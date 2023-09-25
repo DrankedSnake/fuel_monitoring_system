@@ -1,4 +1,4 @@
-import { Show, createResource } from "solid-js"
+import { createResource } from "solid-js"
 import Title from "../title"
 import Table from "../table/table"
 import UploadFileModal from "../modals/uploadFileModal"
@@ -7,25 +7,45 @@ import { createStore } from "solid-js/store"
 import { AddRecordModal } from "../modals"
 import { NavigationItems } from "../../data"
 import { InputField } from "../inputField"
+import SearchForm from "../searchForm/searchForm"
+
+
 
 
 export default function DensityCoefficient(){
-    const getDensityCoefficients = async () => {
-        return await invoke("get_density_coefficients");
-    };
     const addDensityCoefficient = async () => {
         if (form.temperature && form.coefficient && form.density) {
             await invoke("add_density_coefficient", {densityCoefficient: form});
         }
     };
-    const [densityCoefficients, {refetch}] = createResource(getDensityCoefficients);
     const [form, setForm] = createStore(
         {
-            temperature: 0.0,
-            density: 0.0,
+            temperature: "",
+            density: "",
             coefficient: 0.0,
+            pagination: {
+                page: 1,
+                per_page: 17,
+                total_amount: 0
+            }
         }
     );
+    const getDensityCoefficientsAmount = async() => {
+        return await invoke("get_density_coefficients_amount", {searchForm: form});
+    };
+    const getDensityCoefficients = async () => {
+        const amount = await getDensityCoefficientsAmount()
+
+        setForm(
+            {
+                pagination: {
+                    ...form.pagination, total_amount: amount
+                }
+            }
+        );
+        return await invoke("get_density_coefficients", {searchForm: form});
+    };
+    const [densityCoefficients, {refetch}] = createResource(getDensityCoefficients);
     const [uploadForm, setUploadForm] = createStore(
         {
             filePath: "",
@@ -47,13 +67,14 @@ export default function DensityCoefficient(){
     };
     const submitSearchForm = () => {
         refetch();
+        console.log(form)
     };
     const updateUploadForm = async (event: Event) => {
         const inputElement = event.currentTarget as HTMLInputElement;
         let file: File = inputElement.files[0]
         setUploadForm(
             {
-                filePath: `/home/nikita/Documents/${file.name}`
+                filePath: `/home/yuriy/Documents/${file.name}`
             }
         );
     };
@@ -61,14 +82,26 @@ export default function DensityCoefficient(){
         // TODO: refactor component using latest changes in forms inputs buttons and navigation items
         <div class="screen-container">
             <Title value="Density coefficients"/>
-
-            <Show when={densityCoefficients()} fallback={<p>Loading...</p>}>
-                <Table 
-                    records={densityCoefficients()} 
-                    headers={NavigationItems().filter(item => item.name === "densities")[0].item.tableHeaders}
-                />
-            </Show>
-            <AddRecordModal 
+            <SearchForm 
+                fields={
+                    [
+                        {name: "temperature", type: "number", step: "1", min: "10", max: "90"},
+                        {name: "density", type: "number", step: "0.001", min: "0.7", max: "1"},
+                    ]
+                }
+                formChangeCallback={updateFormField}
+                submitCallback={submitSearchForm}
+            />
+            <Table
+                records={densityCoefficients()}
+                headers={
+                    NavigationItems().filter(item => item.name === "densities")[0].item.tableHeaders
+                }
+                pagination={form.pagination}
+                mutateSignal={setForm}
+                submitFormCallback={submitSearchForm}
+            />
+            <AddRecordModal
                 buttonText="Add density coefficient" 
                 title="Add density coefficient"
                 add_record_callback={submitForm}
