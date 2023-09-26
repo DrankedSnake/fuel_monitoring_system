@@ -39,17 +39,19 @@ impl DensityCoefficient{
         for record in records {
             let record = record.unwrap();
             let mut index = 1;
-            
-            while index < record.len(){
-                items.push(
-                    Self{
-                        id: Uuid::new_v4().to_string(),
-                        temperature: record[0].to_string().parse::<f64>().unwrap(),
-                        density: headers[index].to_string().parse::<f64>().unwrap(),
-                        coefficient: record[index].to_string().parse::<f64>().unwrap(),
-                    }
-                );
-                index += 1;
+
+            if record[index].to_string() != "".to_string(){
+                while index < record.len(){
+                    items.push(
+                        Self{
+                            id: Uuid::new_v4().to_string(),
+                            temperature: record[0].to_string().parse::<f64>().unwrap(),
+                            density: headers[index].to_string().parse::<f64>().unwrap(),
+                            coefficient: record[index].to_string().parse::<f64>().unwrap(),
+                        }
+                    );
+                    index += 1;
+                }
             }
         }
         items

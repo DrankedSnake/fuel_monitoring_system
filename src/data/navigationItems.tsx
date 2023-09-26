@@ -36,6 +36,10 @@ const NavigationItems = (): Array<ItemContainer> => {
                 tableHeaders: [
                     "volume",
                     "mass",
+                    "height",
+                    "trim",
+                    "temperature",
+                    "density",
                     "date_created",
                 ],
                 icon: "icons/difference.png"

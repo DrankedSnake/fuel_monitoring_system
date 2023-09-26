@@ -8,8 +8,9 @@ use uuid::Uuid;
 
 use crate::api::{
     densities::domain::DensityCoefficient, 
-    tanks::Tank
+    tanks::Tank,
 };
+use crate::api::profiles::domain::TankProfile;
 use super::super::super::fms_core::AbstractModel;
 
 
@@ -22,30 +23,25 @@ pub struct Difference {
     pub tank_id: String,
     pub volume: f64,
     pub mass: f64,
-    pub density_coefficient_id: String,
     pub date_created: DateTime<Local>,
+    pub height: f64,
+    pub trim: f64,
+    pub temperature: f64,
+    pub density: f64,
 }
 
 impl Difference {
-    pub fn from_map(data: HashMap<String, Value>) -> Self{
-        Self {
-            id: Uuid::new_v4().to_string(),
-            tank_id: Self::parse_string(data.get("tank_id")),
-            volume: Self::parse_f64(data.get("volume")),
-            mass: Self::parse_f64(data.get("mass")),
-            density_coefficient_id: Self::parse_string(data.get("density_coefficient_id")),
-            date_created: Local::now(),
-        }
-    }
-
-    pub fn from_tank_and_density(tank: &Tank, density_coefficient: &DensityCoefficient) -> Self{
+    pub fn from_tank_density_and_profile(tank: &Tank, density_coefficient: &DensityCoefficient, profile: &TankProfile) -> Self{
         Self {
             id: Uuid::new_v4().to_string(),
             tank_id: tank.id.to_string(),
-            volume: Self::round_f64(tank.previous_volume - tank.current_volume),
-            mass: Self::round_f64(tank.previous_mass - tank.current_mass),
-            density_coefficient_id: density_coefficient.id.to_string(),
+            volume: Self::round_f64(-1.0 * (tank.previous_volume - tank.current_volume)),
+            mass: Self::round_f64(-1.0 * (tank.previous_mass - tank.current_mass)),
             date_created: Local::now(),
+            height: profile.height,
+            trim: profile.trim,
+            temperature: density_coefficient.temperature,
+            density: density_coefficient.density,
         }
     }
 }

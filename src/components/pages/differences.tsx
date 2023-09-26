@@ -9,17 +9,18 @@ import { AddRecordModal } from "../modals";
 import { InputField } from "../inputField";
 
 
-const getDifferences = async (tankId: string)=> {
-    if (tankId){
-        return await invoke("get_differences", {"tankId":tankId} )
-    }
-};
-const getVessels = async () => {
-    return await invoke("get_vessels");
-};
+
 
 
 export default function Differences(){
+    const getDifferences = async (tankId: string)=> {
+        if (tankId){
+            return await invoke("get_differences", {"tankId":tankId} )
+        }
+    };
+    const getVessels = async () => {
+        return await invoke("get_vessels");
+    };
     const [activeVesselId, setActiveVesselId] = createSignal("");
     const [activeTankId, setActiveTankId] = createSignal("")
     const [differences, {refetch}] = createResource(activeTankId, getDifferences)

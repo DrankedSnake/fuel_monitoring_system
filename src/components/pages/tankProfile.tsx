@@ -80,7 +80,7 @@ export default function TankProfile(){
         setUploadForm(
             {
                 tankId: activeTank(),
-                filePath: `/home/yuriy/Documents/${file.name}`
+                filePath: `/home/nikita/Documents/${file.name}`
             }
         );
     };

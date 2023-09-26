@@ -30,7 +30,7 @@ pub fn add_difference(tank_id: String, tank_height: String, tank_trim: String, t
     tank = TankService::update_tank(tank);
 
     let difference = DifferencesService::add_difference(
-        Difference::from_tank_and_density(&tank, &density_coefficient)
+        Difference::from_tank_density_and_profile(&tank, &density_coefficient, &tank_profile)
     );
     let result = DailyDifferencesService::get_today_difference(&tank.vessel_id);
 
