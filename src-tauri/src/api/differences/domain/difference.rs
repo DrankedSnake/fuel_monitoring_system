@@ -28,6 +28,7 @@ pub struct Difference {
     pub trim: f64,
     pub temperature: f64,
     pub density: f64,
+    pub fuel_type: String,
 }
 
 impl Difference {
@@ -42,6 +43,7 @@ impl Difference {
             trim: profile.trim,
             temperature: density_coefficient.temperature,
             density: density_coefficient.density,
+            fuel_type: tank.fuel_type.clone()
         }
     }
 }

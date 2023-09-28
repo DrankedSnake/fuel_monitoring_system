@@ -26,8 +26,10 @@ export default function DailyDifferencesChart(props: chartProps){
     let dateTemplate = `${date.getFullYear()}-${month_str}-`
     let dates = [];
 
-    let masses = [];
-    let volumes = [];
+    let hfo_masses = [];
+    let hfo_volumes = [];
+    let mgo_masses = [];
+    let mgo_volumes = [];
     let differences = {};
 
     for (let index=1; index <= lastDay.getDate(); index++){
@@ -41,21 +43,27 @@ export default function DailyDifferencesChart(props: chartProps){
         dates.forEach(
             date => {
                 differences[date] = {}
-                differences[date]["volume"] = 0
-                differences[date]["mass"] = 0
+                differences[date]["hfo_volume"] = 0
+                differences[date]["hfo_mass"] = 0
+                differences[date]["mgo_volume"] = 0
+                differences[date]["mgo_mass"] = 0
             }
         );
         props.data.forEach(
             difference => {
-                differences[difference.date]["volume"] = difference.volume
-                differences[difference.date]["mass"] = difference.mass
+                differences[difference.date]["hfo_volume"] = difference.hfo_volume
+                differences[difference.date]["hfo_mass"] = difference.hfo_mass
+                differences[difference.date]["mgo_volume"] = difference.mgo_volume
+                differences[difference.date]["mgo_mass"] = difference.mgo_mass
         }
         );
 
         dates.forEach(
             date => {
-                volumes.push(differences[date]["volume"])
-                masses.push(differences[date]["mass"])
+                hfo_volumes.push(differences[date]["hfo_volume"])
+                hfo_masses.push(differences[date]["hfo_mass"])
+                mgo_volumes.push(differences[date]["mgo_volume"])
+                mgo_masses.push(differences[date]["mgo_mass"])
             }
         );
     }
@@ -64,11 +72,19 @@ export default function DailyDifferencesChart(props: chartProps){
         labels: dates,
         datasets: [
             {
-                label: `Volume`,
+                label: `HFO Volume`,
                 data: [],
             },
             {
-                label: `Mass`,
+                label: `HFO Mass`,
+                data: [],
+            },
+            {
+                label: `MGO Volume`,
+                data: [],
+            },
+            {
+                label: `MGO Mass`,
                 data: [],
             },
         ],
@@ -77,14 +93,26 @@ export default function DailyDifferencesChart(props: chartProps){
             labels: dates,
             datasets: [
                 {
-                    label: `Volume`,
-                    data: volumes,
+                    label: `HFO Volume`,
+                    data: hfo_volumes,
                     pointStyle: "circle",
                     pointRadius: 10,
                 },
                 {
-                    label: `Mass`,
-                    data: masses,
+                    label: `HFO Mass`,
+                    data: hfo_masses,
+                    pointStyle: "triangle",
+                    pointRadius: 10,
+                },
+                {
+                    label: `MGO Volume`,
+                    data: mgo_volumes,
+                    pointStyle: "circle",
+                    pointRadius: 10,
+                },
+                {
+                    label: `MGO Mass`,
+                    data: mgo_masses,
                     pointStyle: "triangle",
                     pointRadius: 10,
                 },

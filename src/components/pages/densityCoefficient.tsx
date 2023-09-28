@@ -74,7 +74,7 @@ export default function DensityCoefficient(){
         let file: File = inputElement.files[0]
         setUploadForm(
             {
-                filePath: `/home/nikita/Documents/${file.name}`
+                filePath: `/home/yuriy/Documents/${file.name}`
             }
         );
     };

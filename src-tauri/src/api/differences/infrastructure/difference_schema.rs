@@ -9,5 +9,6 @@ diesel::table! {
         trim -> Double,
         temperature -> Double,
         density -> Double,
+        fuel_type -> VarChar,
     }
 }

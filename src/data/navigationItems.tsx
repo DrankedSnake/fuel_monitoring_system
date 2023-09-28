@@ -23,7 +23,7 @@ const NavigationItems = (): Array<ItemContainer> => {
                 title: "Dashboard",
                 path: "/dashboard",
                 component: Dashboard,
-                tableHeaders: ["volume", "mass", "date"],
+                tableHeaders: ["hfo_volume", "hfo_mass", "mgo_volume", "mgo_mass", "date"],
                 icon: "icons/dashboard.png"
             }
         },
