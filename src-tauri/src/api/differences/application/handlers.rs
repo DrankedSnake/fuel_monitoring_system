@@ -54,6 +54,7 @@ pub fn get_differences(tank_id: String) -> Vec<Difference>{
 
 #[logfn(Trace)]
 #[tauri::command]
-pub fn get_daily_differences_for_current_month(vessel_id: String) -> Vec<DailyDifference>{
-    DailyDifferencesService::get_daily_differences_for_current_month(vessel_id)
+pub fn get_daily_differences_for_current_month(vessel_id: String, date: String) -> Vec<DailyDifference>{
+    println!("{}", date);
+    DailyDifferencesService::get_daily_differences(vessel_id, date)
 }

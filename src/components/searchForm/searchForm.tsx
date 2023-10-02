@@ -8,6 +8,7 @@ type SearchField = {
     step: string,
     min: string,
     max: string,
+    value: string,
 }
 
 type SearchFormProps = {
@@ -31,6 +32,7 @@ export default function SearchForm(props: SearchFormProps){
                                 step={field.step}
                                 min={field.min}
                                 max={field.max}
+                                value={field.value}
                                 placeholder={`Enter ${field.name}...`}
                                 onchange={props.formChangeCallback(field.name)}
                             />

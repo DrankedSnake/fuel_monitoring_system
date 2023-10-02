@@ -3,5 +3,8 @@ diesel::table! {
         id -> VarChar,
         name -> VarChar,
         year -> Integer,
+        dead_weight -> Integer,
+        imo -> VarChar,
+        company -> VarChar,
     }
 }

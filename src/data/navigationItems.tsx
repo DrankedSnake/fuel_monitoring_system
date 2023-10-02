@@ -89,7 +89,10 @@ const NavigationItems = (): Array<ItemContainer> => {
                 component: Vessels,
                 tableHeaders: [
                     "name", 
-                    "year"
+                    "year",
+                    "dead_weight",
+                    "imo",
+                    "company",
                 ],
                 icon: "icons/vessel.png"
             }
