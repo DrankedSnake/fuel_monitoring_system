@@ -3,9 +3,9 @@ use diesel::{Queryable, Selectable, Insertable, AsChangeset};
 use serde::{Serialize, Deserialize};
 use uuid::Uuid;
 
+use crate::api::differences::infrastructure::Difference;
 use crate::api::fms_core::AbstractModel;
 
-use super::Difference;
 use crate::api::tanks::Tank;
 
 

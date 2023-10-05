@@ -53,6 +53,8 @@ impl Tank {
         self.previous_volume = self.current_volume;
         self.previous_mass = self.current_mass;
         self.current_volume = volume;
+        // TODO: use certificate density instead of density in calculations
+        // TODO: update difference db schema and model with new column certificate_density
         self.current_mass = Self::round_f64(volume * density * coefficient);
     }
 }

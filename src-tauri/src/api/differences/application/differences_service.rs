@@ -1,7 +1,8 @@
 use log_derive::logfn;
 
+use crate::api::differences::{domain::DifferenceDomain, infrastructure::Difference};
+
 use super::super::infrastructure::DifferencesRepository;
-use super::super::domain::Difference;
 
 
 pub struct DifferencesService;
@@ -12,7 +13,9 @@ impl DifferencesService{
     }
 
     #[logfn(Trace)]
-    pub fn get_differences(tank_id: String) -> Vec<Difference> {
-        DifferencesRepository::select_differences(tank_id)
+    pub fn get_differences(tank_id: String) -> Vec<DifferenceDomain> {
+        DifferenceDomain::from_differences(
+            DifferencesRepository::select_differences(tank_id)
+        )
     }
 }

@@ -2,14 +2,12 @@ use log_derive::logfn;
 
 use super::differences_service::DifferencesService;
 use super::daily_differences_service::DailyDifferencesService;
-use crate::api::tanks::application::service::TankService;
+use crate::api::differences::infrastructure::Difference;
+use crate::api::{tanks::application::service::TankService, differences::domain::DifferenceDomain};
 use crate::api::profiles::application::service::TankProfileService;
 use crate::api::densities::application::service::DensityCoefficientService;
 
-use super::super::domain::{
-    Difference,
-    DailyDifference,
-};
+use super::super::domain::DailyDifference;
 
 
 #[logfn(Trace)]
@@ -48,7 +46,7 @@ pub fn add_difference(tank_id: String, tank_height: String, tank_trim: String, t
 
 #[logfn(Trace)]
 #[tauri::command]
-pub fn get_differences(tank_id: String) -> Vec<Difference>{
+pub fn get_differences(tank_id: String) -> Vec<DifferenceDomain>{
     DifferencesService::get_differences(tank_id)
 }
 

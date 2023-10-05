@@ -30,7 +30,7 @@ fn main() {
     tauri::Builder::default()
         .plugin(
             tauri_plugin_log::Builder::default().target(
-                LogTarget::Folder(PathBuf::from_str("/home/yuriy/.fms/logs").unwrap())
+                LogTarget::Folder(PathBuf::from_str("/home/nikita/.fms/logs").unwrap())
             ).build())
         .invoke_handler(tauri::generate_handler![
             get_tanks,
