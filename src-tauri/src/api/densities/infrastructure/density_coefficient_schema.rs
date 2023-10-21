@@ -4,5 +4,6 @@ diesel::table! {
         temperature -> Double,
         density -> Double,
         coefficient -> Double,
+        factor -> VarChar,
     }
 }

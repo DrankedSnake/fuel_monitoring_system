@@ -5,11 +5,10 @@ import UploadFileModal from "../modals/uploadFileModal"
 import { invoke } from "@tauri-apps/api"
 import { createStore } from "solid-js/store"
 import { AddRecordModal } from "../modals"
-import { NavigationItems } from "../../data"
+import { FactorType, NavigationItems } from "../../data"
 import { InputField } from "../inputField"
 import SearchForm from "../searchForm/searchForm"
-
-
+import DropDownMenu from "../dropDownMenu/dropDownMenu"
 
 
 export default function DensityCoefficient(){
@@ -23,6 +22,7 @@ export default function DensityCoefficient(){
             temperature: "",
             density: "",
             coefficient: 0.0,
+            factor: "",
             pagination: {
                 page: 1,
                 per_page: 17,
@@ -49,6 +49,7 @@ export default function DensityCoefficient(){
     const [uploadForm, setUploadForm] = createStore(
         {
             filePath: "",
+            factor: "",
         }
     );
     const submitUploadForm = async () => {
@@ -67,19 +68,17 @@ export default function DensityCoefficient(){
     };
     const submitSearchForm = () => {
         refetch();
-        console.log(form)
     };
     const updateUploadForm = async (event: Event) => {
         const inputElement = event.currentTarget as HTMLInputElement;
         let file: File = inputElement.files[0]
         setUploadForm(
             {
-                filePath: `/home/yuriy/Documents/${file.name}`
+                filePath: `/home/nikita/Documents/${file.name}`
             }
         );
     };
     return (
-        // TODO: refactor component using latest changes in forms inputs buttons and navigation items
         <div class="screen-container">
             <Title value="Density coefficients"/>
             <SearchForm 
@@ -139,9 +138,36 @@ export default function DensityCoefficient(){
                     require
                     onChange={updateFormField("coefficient")} 
                 />
+                <DropDownMenu 
+                    items={FactorType()}
+                    displayValueKey="name"
+                    identifyValueKey="id"
+                    setSignalCallback={
+                        (factor: string)=>{setForm({factor: factor})}
+                    }
+                    placeholder="Select factor..."
+                />
             </AddRecordModal>
-            <UploadFileModal buttonText="Upload coefficients from csv" title="Upload density coefficients" submitFormCallback={submitUploadForm}>
-                <input type="file" onChange={updateUploadForm} id="densityCoefficientsFile" name="filename"/>
+            <UploadFileModal 
+                buttonText="Upload coefficients from csv" 
+                title="Upload density coefficients" 
+                submitFormCallback={submitUploadForm}
+            >
+                <input 
+                    type="file"
+                    onChange={updateUploadForm}
+                    id="densityCoefficientsFile" 
+                    name="filename"
+                />
+                <DropDownMenu 
+                    items={FactorType()}
+                    displayValueKey="name"
+                    identifyValueKey="id"
+                    setSignalCallback={
+                        (factor: string)=>{setUploadForm({factor: factor})}
+                    }
+                    placeholder="Select factor..."
+                />
             </UploadFileModal>
         </div>
     )

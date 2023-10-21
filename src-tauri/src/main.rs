@@ -21,6 +21,7 @@ use api::{
     add_difference,
     get_differences,
     get_daily_differences_for_current_month,
+    get_differences_amount,
     get_tankers,
 };
 use tauri_plugin_log::LogTarget;
@@ -47,6 +48,7 @@ fn main() {
             add_difference,
             get_differences,
             get_daily_differences_for_current_month,
+            get_differences_amount,
             get_tankers,
             get_tank_profiles_amount,
             get_density_coefficient,

@@ -138,16 +138,32 @@ impl DensityCoefficientsRepository {
     }
 
     #[logfn_inputs(Trace)]
-    pub fn select_one_by(temperature: f64, density: f64) -> Option<DensityCoefficient> {
+    pub fn select_one_for_vacuum(temperature: f64, density: f64) -> Option<DensityCoefficient> {
         let connection = &mut establish_connection();
         let result = FilterDsl::filter(
             schema::table, 
             schema::temperature.eq(temperature)
             .and(schema::density.eq(density))
+            .and(schema::factor.eq("IN_VACUUM".to_string()))
         )
         .select(DensityCoefficient::as_select())
         .get_result(connection).optional().unwrap();
     
+        result
+    }
+
+    #[logfn_inputs(Trace)]
+    pub fn select_one_for_air(temperature: f64, density: f64) -> Option<DensityCoefficient> {
+        let connection = &mut establish_connection();
+        let result = FilterDsl::filter(
+            schema::table,
+            schema::temperature.eq(temperature)
+            .and(schema::density.eq(density))
+            .and(schema::factor.eq("IN_AIR".to_string()))
+        )
+            .select(DensityCoefficient::as_select())
+            .get_result(connection).optional().unwrap();
+
         result
     }
 

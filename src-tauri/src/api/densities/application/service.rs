@@ -51,15 +51,22 @@ impl DensityCoefficientService {
     }
 
     #[logfn(Trace)]
-    pub fn add_density_coefficients(file_path: &str) -> Vec<DensityCoefficient>{
+    pub fn add_density_coefficients(file_path: &str, factor: String) -> Vec<DensityCoefficient>{
         DensityCoefficientsRepository::insert_many(
-            DensityCoefficient::from_csv(file_path)
+            DensityCoefficient::from_csv(file_path, factor)
         )
     }
 
     #[logfn(Trace)]
-    pub fn get_density_coefficient(temperature: f64, density: f64) -> Option<DensityCoefficient> {
-        DensityCoefficientsRepository::select_one_by(
+    pub fn get_density_coefficient_in_vacuum(temperature: f64, density: f64) -> Option<DensityCoefficient> {
+        DensityCoefficientsRepository::select_one_for_vacuum(
+            temperature, density
+        )
+    }
+
+    #[logfn(Trace)]
+    pub fn get_density_coefficient_in_air(temperature: f64, density: f64) -> Option<DensityCoefficient> {
+        DensityCoefficientsRepository::select_one_for_air(
             temperature, density
         )
     }

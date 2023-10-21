@@ -31,9 +31,10 @@ impl DailyDifferencesRepository{
             dsl::vessel_id.eq(vessel_id)
             .and(dsl::date.ge(first_date)
             .and(dsl::date.le(last_date)))
-        ).select(
-            DailyDifference::as_select()
-        ).get_results(connection).expect("Error during selecting tanks");
+        )
+        .order(dsl::date.desc())
+        .select(DailyDifference::as_select())
+        .get_results(connection).expect("Error during selecting tanks");
         result
     }
 

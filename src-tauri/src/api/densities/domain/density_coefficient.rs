@@ -18,6 +18,7 @@ pub struct DensityCoefficient{
     pub temperature: f64,
     pub density: f64,
     pub coefficient: f64,
+    pub factor: String,
 }
 impl DensityCoefficient{
     pub fn from_map(data: HashMap<String, Value>) -> Self{
@@ -25,11 +26,12 @@ impl DensityCoefficient{
             id: Uuid::new_v4().to_string(),
             temperature: Self::parse_f64(data.get("temperature")),
             density: Self::parse_f64(data.get("density")),
-            coefficient: Self::parse_f64(data.get("coefficient")),      
+            coefficient: Self::parse_f64(data.get("coefficient")),
+            factor: Self::parse_string(data.get("factor")),
         }
     }
 
-    pub fn from_csv(file_path: &str) -> Vec<Self>{
+    pub fn from_csv(file_path: &str, factor: String) -> Vec<Self>{
         let mut items: Vec<Self> = Vec::new();
 
         let mut reader = Reader::from_path(file_path).expect("No such file found.");
@@ -48,6 +50,7 @@ impl DensityCoefficient{
                             temperature: record[0].to_string().parse::<f64>().unwrap(),
                             density: headers[index].to_string().parse::<f64>().unwrap(),
                             coefficient: record[index].to_string().parse::<f64>().unwrap(),
+                            factor: factor.clone(),
                         }
                     );
                     index += 1;

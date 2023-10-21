@@ -1,7 +1,11 @@
+use std::collections::HashMap;
+
 use log_derive::logfn;
+use serde_json::Value;
 
 use super::differences_service::DifferencesService;
 use super::daily_differences_service::DailyDifferencesService;
+use crate::api::differences::application::validators::AddDifference;
 use crate::api::differences::infrastructure::Difference;
 use crate::api::{tanks::application::service::TankService, differences::domain::DifferenceDomain};
 use crate::api::profiles::application::service::TankProfileService;
@@ -12,23 +16,28 @@ use super::super::domain::DailyDifference;
 
 #[logfn(Trace)]
 #[tauri::command]
-pub fn add_difference(tank_id: String, tank_height: String, tank_trim: String, temperature: String, density: String) -> Difference{
-    let mut tank = TankService::get_tank_by_id(tank_id);
+pub fn add_difference(form: HashMap<String, Value>) -> Difference{
+    let form = AddDifference::from_map(form);
+    let mut tank = TankService::get_tank_by_id(form.tank_id);
 
     let tank_profile = TankProfileService::get_tank_profile(
         tank.id.clone(), 
-        tank_height.replace("\"", "").parse::<f64>().unwrap(),
-        tank_trim.replace("\"", "").parse::<f64>().unwrap(),
+        form.height,
+        form.trim,
     ).unwrap();
-    let density_coefficient = DensityCoefficientService::get_density_coefficient(
-        temperature.replace("\"", "").parse::<f64>().unwrap(),
-        density.replace("\"", "").parse::<f64>().unwrap(),
+    let density_coefficient_in_vacuum = DensityCoefficientService::get_density_coefficient_in_vacuum(
+        form.temperature,
+        form.density_in_vacuum,
     ).unwrap();
-    tank.update(tank_profile.volume, density_coefficient.density, density_coefficient.coefficient);
+    let density_coefficient_in_air = DensityCoefficientService::get_density_coefficient_in_air(
+        15.0,
+        form.density_in_air,
+    ).unwrap();
+    tank.update(&tank_profile, &density_coefficient_in_vacuum, &density_coefficient_in_air);
     tank = TankService::update_tank(tank);
 
     let difference = DifferencesService::add_difference(
-        Difference::from_tank_density_and_profile(&tank, &density_coefficient, &tank_profile)
+        Difference::from_tank_density_and_profile(&tank, &density_coefficient_in_vacuum, &tank_profile)
     );
     let result = DailyDifferencesService::get_today_difference(&tank.vessel_id);
 
@@ -46,13 +55,18 @@ pub fn add_difference(tank_id: String, tank_height: String, tank_trim: String, t
 
 #[logfn(Trace)]
 #[tauri::command]
-pub fn get_differences(tank_id: String) -> Vec<DifferenceDomain>{
-    DifferencesService::get_differences(tank_id)
+pub fn get_differences(search_form: HashMap<String, Value>) -> Vec<DifferenceDomain>{
+    DifferencesService::get_differences(search_form)
 }
 
 #[logfn(Trace)]
 #[tauri::command]
+pub fn get_differences_amount(search_form: HashMap<String, Value>) -> i64 {
+    DifferencesService::get_difference_amount(search_form)
+} 
+
+#[logfn(Trace)]
+#[tauri::command]
 pub fn get_daily_differences_for_current_month(vessel_id: String, date: String) -> Vec<DailyDifference>{
-    println!("{}", date);
     DailyDifferencesService::get_daily_differences(vessel_id, date)
 }
