@@ -1,0 +1,73 @@
+.navigation-container{
+    background: #111827;
+    width: 300px;
+    height: 100vh;
+    position: relative;
+    top: 0;
+    left: 0;
+}
+.navigation-container--collapsed {
+    width: var(--nav-icon-width);
+}
+.navigation-container--collapsed .item-label{
+    display: none;
+    transition: 0.3s ease;
+}
+.navigation-container .items li{
+    list-style: none;
+    padding: 15px 0;
+    transition:  0.3s ease;
+}
+
+.navigation-container .items li:hover{
+    background: #253047;
+    cursor: pointer;
+}
+
+
+.navigation-container .items li i{
+    color: rgb(134, 141, 151);
+    width: 30px;
+    height: 30px;
+    line-height: 30px;
+    text-align: center;
+    font-size: 14px;
+    margin: 0 10px 0 25px;
+}
+
+.navigation-container .items li:hover i,
+.navigation-container .items a li:hover {
+    color: #f3f4f6;
+}
+
+.navigation-container .items a li{
+    text-decoration: none;
+    color: rgb(134, 141, 151);
+    font-weight: 300px;
+    transition:  0.3s ease;
+}
+.navigation-container .items a,
+.navigation-container .items a:visited, 
+.navigation-container .items a:hover{
+    color: inherit;
+}
+
+.navigation-container .items a:active li{
+    background-color: #f3f4f6;
+}
+
+div img {
+    width: 50px;
+    height: 50px;
+    margin-bottom: 5px;
+    margin-left: 10px;
+    vertical-align: middle;
+}
+
+div i {
+    text-decoration: none;
+    color: rgb(134, 141, 151);
+    font-weight: 300px;
+    transition:  0.3s ease;
+    margin: 0 10px 0 25px;
+}

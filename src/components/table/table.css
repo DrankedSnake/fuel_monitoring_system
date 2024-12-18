@@ -1,0 +1,37 @@
+.board {
+    width: 92.5vw;
+}
+table {
+    display: block;
+    border-collapse: collapse;
+    height: 750px;
+    overflow-y: scroll;
+    overflow-x: scroll;
+    background: #fff;
+    box-shadow: 0 5px 20px rgba(0, 0, 0, 0.80);
+    border-radius: 10px;
+    margin-right: 2.5vw;
+    margin-top: 3vh;
+}
+
+thead tr {
+    background: #253047;
+    color: rgb(134, 141, 151);
+    font-size: 14px;
+    font-weight: bold;
+    position: relative;
+}
+
+thead td{
+    text-transform: uppercase;
+    padding: 10px 40px 10px 40px;
+    width: 5%;
+}
+
+tbody tr {
+    border-bottom: 2px solid #eef0f3;
+}
+
+tbody tr td {
+    padding: 10px 50px 10px 50px;
+}

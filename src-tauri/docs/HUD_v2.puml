@@ -1,0 +1,44 @@
+@startuml Api Management
+
+title High Level Architecture
+
+skinparam linetype ortho
+actor User
+
+rectangle Network{
+    rectangle Laptop {
+        database DB
+        rectangle SolidJsServer
+        rectangle API
+        rectangle Browser
+        rectangle RestAPI
+
+        User -[#Blue]-> Browser
+            Browser -[#Blue]-> SolidJsServer
+                SolidJsServer -[#Blue]-> API: IPC
+                    API -[#Blue]-> RestAPI: TCP/IP HTTP
+                        RestAPI -[#Blue]-> DB: TCP/IP SQL
+                        RestAPI <-[#Green]- DB
+                    API <-[#Green]- RestAPI
+                SolidJsServer <-[#Green]- API
+            Browser <-[#Green]- SolidJsServer
+        User <-[#Green]- Browser
+        
+    }
+    rectangle Mobile {
+        rectangle MobileBrowser
+        rectangle MobileSolidJsServer
+        rectangle MobileAPI
+
+        User -[#Red]-> MobileBrowser
+            MobileBrowser -[#Red]-> MobileSolidJsServer
+                MobileSolidJsServer -[#Red]-> MobileAPI: IPC
+                    MobileAPI -left-> RestAPI
+                    MobileAPI <-right- RestAPI
+                MobileSolidJsServer <-[#Orange]- MobileAPI
+            MobileBrowser <-[#Orange]- MobileSolidJsServer
+        User <-[#Orange]- MobileBrowser
+    }
+}
+
+@enduml

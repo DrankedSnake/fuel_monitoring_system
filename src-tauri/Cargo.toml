@@ -1,0 +1,31 @@
+[package]
+name = "FMS"
+version = "1.0.9"
+description = "Application for calculating and monitoring fuel in vessel."
+authors = ["you"]
+license = ""
+repository = ""
+edition = "2021"
+
+[build-dependencies]
+tauri-build = { version = "2.0.0", features = [] }
+
+[dependencies]
+# tauri-plugin-log = { git = "https://github.com/tauri-apps/plugins-workspace", branch = "v1" }
+tauri = { version = "2.0.0", features = ["devtools"] }
+tauri-plugin-shell = "2.0.0"
+serde = { version = "1", features = ["derive"] }
+uuid = {version = "1.10.0", features = ["v4"] }
+serde_json = "1.0"
+diesel = { version = "2.2.4", features = ["postgres", "uuid", "chrono"] }
+dotenvy = "0.15"
+csv = { version = "*"}
+# chrono = {version = "^0.4.38", features = ["json-serde"] }
+log = "^0.4"
+log-derive = "0.4.1"
+rust_decimal = "1.36.0"
+chrono = {version = "0.4.38", features = ["serde"] }
+tauri-plugin-log = "2.0.1"
+
+[features]
+custom-protocol = ["tauri/custom-protocol"]

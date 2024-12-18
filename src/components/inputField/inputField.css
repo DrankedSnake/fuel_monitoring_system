@@ -1,0 +1,47 @@
+.inputBox {
+    position: relative;
+    width: 17vw;
+    display: flex;
+    padding: 5px;
+}
+
+.inputBox input {
+    width: 100%;
+    padding: 10px;
+    border: 1px solid rgba(255, 255, 255, 0.25);
+    background: #fff;
+    border-radius: 5px;
+    outline: none;
+    color: #000;
+    font-size: 1em;
+    transition: 0.5s;
+    display: block;
+    position: relative;
+}
+
+.inputBox span {
+    position: absolute;
+    left: 0;
+    padding: 15px 20px 0 20px;
+    pointer-events: none;
+    color: rgba(0, 0, 0, 0.0)
+}
+
+.inputBox input:focus ~ span {
+    color: #00dfc4;
+    transform: translateX(10px) translateY(-7px);
+    font-size: 0.85em;
+    padding: 0 10px;
+    background: rgba(0, 0, 0, 0.85);
+    transition: 0.5s;
+    letter-spacing: 0.2em;
+}
+
+.inputBox .error-message {
+    color: red;
+    padding: 8px;
+    display: block;
+}
+.inputBox .error-input {
+    box-shadow: 0 0 0 2px red;
+}

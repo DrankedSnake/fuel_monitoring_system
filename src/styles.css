@@ -1,0 +1,57 @@
+:root {
+  --nav-icon-width: 70px;
+}
+body {
+  height: 100vh;
+  margin: 0;
+  font-family: sans-serif;
+  background: #E5E7EB;
+  display: flex;
+}
+.screen-container {
+  height: inherit;
+  padding: 0;
+  overflow-y: auto;
+  width: 100vw;
+  margin-left: 2.5vw;
+  margin-right: 2.5vw;
+
+}
+.chart {
+  width: 90vw;
+}
+
+button {
+  border-radius: 5px;
+  margin: 5px;
+  background: #fff;
+  color: black;
+  text-decoration:  none;
+  text-transform: uppercase;
+  transition: 0.5s;
+}
+
+button.submit:hover {
+  background: rgb(62, 190, 73);
+  letter-spacing: 0.25em;
+  box-shadow: 0 0 45px rgb(53, 158, 74);
+  color: #fff;
+  border-radius: 10px;
+}
+
+button.cancel:hover {
+  background: rgb(88, 88, 97);
+  letter-spacing: 0.25em;
+  box-shadow: 0 0 45px rgb(87, 87, 99);
+  color: #fff;
+  border-radius: 10px;
+}
+
+button.open-modal-button:hover {
+  background: rgb(70, 70, 172);
+  letter-spacing: 0.25em;
+  box-shadow: 0 0 45px rgb(55, 55, 163);
+  color: #fff;
+  border-radius: 10px;
+}
+

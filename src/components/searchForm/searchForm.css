@@ -1,0 +1,12 @@
+.search-box {
+    /* position: relative; */
+    margin-left: 50vw;
+    width: 25vw;
+    background: #fff;
+    box-shadow: 0 5px 20px rgba(0, 0, 0, 0.80);
+    border-radius: 10px;
+}
+.search-box input {
+    margin: 5px;
+    width: 7.5vw;
+}

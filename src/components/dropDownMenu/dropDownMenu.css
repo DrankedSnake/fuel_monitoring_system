@@ -1,0 +1,72 @@
+.select {
+    position: relative;
+    width: 300px;
+    height:  10px;
+    padding: 0px 0px 10px 0px;
+    margin-top: 30px;
+  }
+  
+  .select::before{
+    content: '';
+    position: absolute;
+    right: 20px;
+    top: 15px;
+    z-index: 99999;
+    width: 8px;
+    height: 8px;
+    border: 2px solid #333;
+    border-top: 2px solid #fff;
+    border-right: 2px solid #fff;
+    transform: rotate(-45deg);
+    transition: 0.5s;
+    pointer-events: none;
+  }
+  
+  .select.active::before {
+    /* top: 25px; */
+    transform: rotate(-225deg);
+  }
+  
+  .select input{
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    cursor: pointer;
+    background: #fff;
+    border: none;
+    outline: none;
+    box-shadow: 0 5px 20px rgba(0, 0, 0, 0.80);
+    padding: 12px;
+    border-radius: 10px;
+    
+  }
+  
+  .select .option {
+    position: absolute;
+    top: 70px;
+    width: 100%;
+    background: #fff;
+    box-shadow: 0 30px 30px rgba(0, 0, 0, 0.80);
+    border-radius: 10px;
+    overflow: hidden;
+    display: none;
+    z-index: 10000;
+  }
+  
+  .select.active .option{
+    display: block;
+  }
+  
+  .select .option div{
+    padding: 12px 20px;
+    cursor: pointer;
+    transition: 0.5s;
+  }
+  
+  .select .option div:hover{
+      background: rgb(88, 88, 97);
+      letter-spacing: 0.25em;
+      box-shadow: 0 0 45px rgb(87, 87, 99);
+  }
