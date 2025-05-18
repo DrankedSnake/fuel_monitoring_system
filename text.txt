@@ -1,0 +1,15 @@
+Equilateral         Equilateral
+Equilateral         Equilateral
+Isosceles           Isosceles
+Equilateral         Equilateral
+Isosceles           Isosceles
+Equilateral         Equilateral
+Scalene             Scalene
+Not A Triangle      Isosceles
+Scalene         Scalene
+Scalene         Scalene
+Scalene         Scalene
+Not A Triangle      Not A Triangle
+Not A Triangle      Not A Triangle
+Scalene         Scalene
+Equilateral     Equilateral
