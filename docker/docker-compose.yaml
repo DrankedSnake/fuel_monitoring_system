@@ -1,9 +1,12 @@
 services:
   postgres:
-    image: postgres:16
+    image: postgres:latest
+    container_name: postgres
     environment:
-      POSTGRES_DB: fms
       POSTGRES_USER: postgres
-      POSTGRES_HOST_AUTH_METHOD: trust
-    ports: 
+      POSTGRES_PASSWORD: postgres
+      POSTGRES_DB: fms
+    ports:
       - "5432:5432"
+    volumes:
+      - ./postgres_data:/var/lib/postgresql/data
