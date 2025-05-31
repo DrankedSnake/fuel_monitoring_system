@@ -6,13 +6,16 @@
     top: 0;
     left: 0;
 }
+
 .navigation-container--collapsed {
     width: var(--nav-icon-width);
 }
+
 .navigation-container--collapsed .item-label{
     display: none;
     transition: 0.3s ease;
 }
+
 .navigation-container .items li{
     list-style: none;
     padding: 15px 0;

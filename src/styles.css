@@ -1,6 +1,11 @@
 :root {
   --nav-icon-width: 70px;
 }
+html, body {
+  margin: 0;
+  padding: 0;
+  overflow-x: hidden; /* Убирает горизонтальный скроллинг для всей страницы */
+}
 body {
   height: 100vh;
   margin: 0;
@@ -8,6 +13,7 @@ body {
   background: #E5E7EB;
   display: flex;
 }
+
 .screen-container {
   height: inherit;
   padding: 0;
