@@ -126,7 +126,7 @@ export default function DensityCoefficient(){
                     id="coefficient"
                     min="0.3"
                     max="1.25"
-                    step="0.0001"
+                    step="0.00001"
                     require
                     onChange={updateFormField("coefficient")} 
                 />

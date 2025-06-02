@@ -9,7 +9,14 @@ _POSTFIX = "amd64.deb"
 _RELEASE_FOLDER="${_TARGET_FOLDER}/release${_BUNDLE_FOLDER}/${_BUILD_NAME}_${_FMS_VERSION}_${_POSTFIX}"
 _DEBUG_FOLDER="${_TARGET_FOLDER}/debug${_BUNDLE_FOLDER}/${_BUILD_NAME}_${_FMS_VERSION}_${_POSTFIX}"
 _DOWNLOAD_FOLDER="~/Downloads/${_BUILD_NAME}_${_FMS_VERSION}_${_POSTFIX}"
-_PASSWORD=1234
+nikita_password = Vfcnbyj
+yuriy_password = 1234
+nikita_folder = ${_RELEASE_FOLDER}
+yuriy_folder = ${_DOWNLOAD_FOLDER}
+_PASSWORD = $(if $(shell whoami | grep -i nikita),${nikita_password},${yuriy_password})
+_APP_FOLDER = $(if $(shell whoami | grep -i nikita),${nikita_folder},${yuriy_folder})
+
+
 
 help:
 
@@ -39,7 +46,7 @@ upgrade_db:
 
 upgrade_app:
 	echo ${_PASSWORD} | sudo -S dpkg -r ${_APP_NAME}
-	echo ${_PASSWORD} | sudo -S dpkg -i ${_RELEASE_FOLDER}
+	echo ${_PASSWORD} | sudo -S dpkg -i ${_APP_FOLDER}
 
 downgrade_db:
 	diesel migration redo --migration-dir ${migrations}
@@ -47,5 +54,8 @@ downgrade_db:
 run_db:
 	cd docker && docker compose up --build -d
 
-create_db_dump:
-	docker exec -it postgres pg_dump -U postgres -d fms > src-tauri/src/api/fms_core/db/dumps/$(shell date +%Y-%m-%d_%H-%M-%S)_dump.sql
+dump_db:
+	mkdir ./src-tauri/src/api/fms_coare/db/.dumps docker exec -it postgres pg_dump -U postgres -d fms > src-tauri/src/api/fms_core/db/.dumps/$(shell date +%Y-%m-%d_%H-%M-%S)_dump.sql
+
+load_latest_dump:
+	docker exec -it postgres psql -U postgres -d fms < src-tauri/src/api/fms_core/db/.dumps/$(shell ls -t src-tauri/src/api/fms_core/db/.dumps | head -n 1)
