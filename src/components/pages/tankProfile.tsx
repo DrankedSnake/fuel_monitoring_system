@@ -70,18 +70,8 @@ export default function TankProfile(){
         await addTankProfile(form);
         refetch();   
     };
-    const updateUploadForm = async (event: Event) => {
-        const inputElement = event.currentTarget as HTMLInputElement;
-        let file: File = inputElement.files[0]
-        setUploadForm(
-            {
-                tankId: activeTank(),
-                filePath: `/home/nikita/Documents/${file.name}`
-            }
-        );
-    };
-    const submitUploadForm = async () => {
-        await invoke("add_tank_profiles", uploadForm);
+    const submitUploadForm = async (filePath: string) => {
+        await invoke("add_tank_profiles", {filePath, tankId: activeTank()});
         refetch();   
     }
     const handleChangeVessel = (id: string) => {
@@ -170,7 +160,6 @@ export default function TankProfile(){
                 title="Upload tank profiles" 
                 submitFormCallback={submitUploadForm}
             >
-                <input type="file" onChange={updateUploadForm} id="tankProfilesFile" name="filename"/>
             </UploadFileModal>
         </div>
     )

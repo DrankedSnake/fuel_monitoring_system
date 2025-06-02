@@ -1,12 +1,11 @@
 use std::collections::HashMap;
 
 use diesel::prelude::*;
-use serde::{Serialize, Deserialize};
+use serde::{Deserialize, Serialize};
 use serde_json::Value;
 use uuid::Uuid;
 
 use super::super::super::fms_core::AbstractModel;
-
 
 #[derive(Queryable, Selectable, Insertable)]
 #[diesel(table_name = super::super::infrastructure::schema)]
@@ -33,4 +32,4 @@ impl Vessel {
     }
 }
 
-impl AbstractModel for Vessel{}
+impl AbstractModel for Vessel {}

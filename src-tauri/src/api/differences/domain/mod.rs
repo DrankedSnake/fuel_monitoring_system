@@ -1,5 +1,5 @@
-mod difference_domain;
 mod daily_difference;
+mod difference_domain;
 
-pub use difference_domain::DifferenceDomain;
 pub use daily_difference::DailyDifference;
+pub use difference_domain::DifferenceDomain;

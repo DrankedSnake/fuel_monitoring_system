@@ -52,8 +52,8 @@ export default function DensityCoefficient(){
             factor: "",
         }
     );
-    const submitUploadForm = async () => {
-        await invoke("add_density_coefficients", uploadForm);
+    const submitUploadForm = async (filePath: string) => {
+        await invoke("add_density_coefficients", { filePath, factor: uploadForm.factor });
         refetch();
     };
     const submitForm = async () => {
@@ -69,15 +69,7 @@ export default function DensityCoefficient(){
     const submitSearchForm = () => {
         refetch();
     };
-    const updateUploadForm = async (event: Event) => {
-        const inputElement = event.currentTarget as HTMLInputElement;
-        let file: File = inputElement.files[0]
-        setUploadForm(
-            {
-                filePath: `/home/nikita/Documents/${file.name}`
-            }
-        );
-    };
+
     return (
         <div class="screen-container">
             <Title value="Density coefficients"/>
@@ -149,24 +141,16 @@ export default function DensityCoefficient(){
                 />
             </AddRecordModal>
             <UploadFileModal 
-                buttonText="Upload coefficients from csv" 
-                title="Upload density coefficients" 
+                buttonText="Upload density coefficients from CSV" 
+                title="Upload density coefficients from CSV" 
                 submitFormCallback={submitUploadForm}
             >
-                <input 
-                    type="file"
-                    onChange={updateUploadForm}
-                    id="densityCoefficientsFile" 
-                    name="filename"
-                />
                 <DropDownMenu 
                     items={FactorType()}
                     displayValueKey="name"
                     identifyValueKey="id"
-                    setSignalCallback={
-                        (factor: string)=>{setUploadForm({factor: factor})}
-                    }
-                    placeholder="Select factor..."
+                    setSignalCallback={(factor: string) => { setUploadForm({ factor }); }}
+                    placeholder="Choose factor..."
                 />
             </UploadFileModal>
         </div>

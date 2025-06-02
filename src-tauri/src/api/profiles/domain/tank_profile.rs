@@ -1,12 +1,11 @@
 use std::collections::HashMap;
 
 use diesel::prelude::*;
-use serde::{Serialize, Deserialize};
+use serde::{Deserialize, Serialize};
 use serde_json::Value;
 use uuid::Uuid;
 
 use super::super::super::fms_core::AbstractModel;
-
 
 #[derive(Queryable, Selectable, Insertable)]
 #[diesel(table_name = super::super::infrastructure::schema)]
@@ -20,7 +19,7 @@ pub struct TankProfile {
     pub trim: f64,
 }
 impl TankProfile {
-    pub fn from_map(data: HashMap<String, Value>) -> Self{
+    pub fn from_map(data: HashMap<String, Value>) -> Self {
         Self {
             id: Uuid::new_v4().to_string(),
             tank_id: Self::parse_string(data.get("tank_id")),
@@ -30,20 +29,24 @@ impl TankProfile {
         }
     }
 
-    pub fn is_value_empty(value: &String, empty_cell: &String) -> bool{
+    pub fn is_value_empty(value: &String, empty_cell: &String) -> bool {
         if value == empty_cell {
             return true;
-        }else{
+        } else {
             return false;
         }
     }
 
     pub fn from_csv_record(
-        tank_id: &str, height: String, trim: String, volume: String, empty_cell: &String
-    ) -> Option<Self>{
+        tank_id: &str,
+        height: String,
+        trim: String,
+        volume: String,
+        empty_cell: &String,
+    ) -> Option<Self> {
         let volume = volume.to_string();
 
-        if !Self::is_value_empty(&volume, &empty_cell){
+        if !Self::is_value_empty(&volume, &empty_cell) {
             return Some(Self {
                 id: Uuid::new_v4().to_string(),
                 tank_id: tank_id.to_string(),
@@ -51,10 +54,9 @@ impl TankProfile {
                 trim: trim.to_string().parse::<f64>().unwrap(),
                 volume: volume.parse::<f64>().unwrap(),
             });
-        }
-        else{
-            return None
+        } else {
+            return None;
         }
     }
 }
-impl AbstractModel for TankProfile{}
+impl AbstractModel for TankProfile {}

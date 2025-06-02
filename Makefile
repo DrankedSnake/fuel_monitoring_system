@@ -28,7 +28,7 @@ build:
 	pnpm tauri build
 
 run_dev:
-	pnpm tauri dev
+	pnpm tauri dev 
 
 build_debug:
 	pnpm tauri build --debug

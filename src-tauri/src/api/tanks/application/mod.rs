@@ -1,7 +1,4 @@
 mod handlers;
 pub mod service;
 
-pub use handlers::{
-    get_tanks, 
-    add_tank,
-};
+pub use handlers::{add_tank, get_tanks};

@@ -1,8 +1,7 @@
-use std::collections::HashMap;
 use serde_json::Value;
+use std::collections::HashMap;
 
 use crate::api::fms_core::AbstractModel;
-
 
 #[derive(Debug)]
 pub struct AddDifference {
@@ -14,7 +13,7 @@ pub struct AddDifference {
     pub density_in_air: f64,
 }
 impl AddDifference {
-    pub fn from_map(data: HashMap<String, Value>) -> Self{
+    pub fn from_map(data: HashMap<String, Value>) -> Self {
         Self {
             tank_id: Self::parse_string(data.get("tank_id")),
             height: Self::parse_f64(data.get("tank_height")),
@@ -25,4 +24,4 @@ impl AddDifference {
         }
     }
 }
-impl AbstractModel for AddDifference{}
+impl AbstractModel for AddDifference {}

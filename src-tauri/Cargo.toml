@@ -26,6 +26,7 @@ log-derive = "0.4.1"
 rust_decimal = "1.36.0"
 chrono = {version = "0.4.38", features = ["serde"] }
 tauri-plugin-log = "2.0.1"
+tauri-plugin-dialog = "2"
 
 [features]
 custom-protocol = ["tauri/custom-protocol"]

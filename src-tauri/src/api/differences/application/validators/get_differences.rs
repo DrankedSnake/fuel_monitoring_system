@@ -1,8 +1,7 @@
+use serde_json::{Map, Value};
 use std::collections::HashMap;
-use serde_json::{Value, Map};
 
 use crate::api::fms_core::AbstractModel;
-
 
 #[derive(Debug)]
 pub struct GetDifferences {
@@ -11,7 +10,7 @@ pub struct GetDifferences {
     pub limit: i64,
 }
 impl GetDifferences {
-    pub fn from_map(data: HashMap<String, Value>) -> Self{
+    pub fn from_map(data: HashMap<String, Value>) -> Self {
         let pagination: &Map<String, Value> = Self::from_json_to_object(data.get("pagination"));
         let page = Self::from_number_to_i64(pagination.get("page"));
         let per_page = Self::from_number_to_i64(pagination.get("per_page"));
@@ -23,4 +22,4 @@ impl GetDifferences {
         }
     }
 }
-impl AbstractModel for GetDifferences{}
+impl AbstractModel for GetDifferences {}

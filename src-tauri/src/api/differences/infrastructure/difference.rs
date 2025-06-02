@@ -1,15 +1,11 @@
 use chrono::{DateTime, Local};
 use diesel::prelude::*;
-use serde::{Serialize, Deserialize};
+use serde::{Deserialize, Serialize};
 use uuid::Uuid;
 
-use crate::api::{
-    densities::domain::DensityCoefficient, 
-    tanks::Tank,
-};
-use crate::api::profiles::domain::TankProfile;
 use super::super::super::fms_core::AbstractModel;
-
+use crate::api::profiles::domain::TankProfile;
+use crate::api::{densities::domain::DensityCoefficient, tanks::Tank};
 
 #[derive(Queryable, Selectable, Insertable)]
 #[diesel(table_name = super::super::infrastructure::schema)]
@@ -29,7 +25,11 @@ pub struct Difference {
 }
 
 impl Difference {
-    pub fn from_tank_density_and_profile(tank: &Tank, density_coefficient: &DensityCoefficient, profile: &TankProfile) -> Self{
+    pub fn from_tank_density_and_profile(
+        tank: &Tank,
+        density_coefficient: &DensityCoefficient,
+        profile: &TankProfile,
+    ) -> Self {
         Self {
             id: Uuid::new_v4().to_string(),
             tank_id: tank.id.to_string(),
@@ -40,8 +40,8 @@ impl Difference {
             trim: profile.trim,
             temperature: density_coefficient.temperature,
             density: density_coefficient.density,
-            fuel_type: tank.fuel_type.clone()
+            fuel_type: tank.fuel_type.clone(),
         }
     }
 }
-impl AbstractModel for Difference{}
+impl AbstractModel for Difference {}

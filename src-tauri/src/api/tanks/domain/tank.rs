@@ -1,11 +1,10 @@
 use serde::Serialize;
 
-use crate::api::{tanks::infrastructure::Tank, fms_core::AbstractModel};
-
+use crate::api::{fms_core::AbstractModel, tanks::infrastructure::Tank};
 
 #[derive(Serialize, Debug)]
 
-pub struct TankDomain{
+pub struct TankDomain {
     pub id: String,
     pub name: String,
     pub full_volume: f64,
@@ -21,7 +20,7 @@ pub struct TankDomain{
     pub bunkering_volume: f64,
 }
 impl TankDomain {
-    pub fn from_tank_model(tank: Tank) -> Self{
+    pub fn from_tank_model(tank: Tank) -> Self {
         Self {
             id: tank.id,
             name: tank.name,
@@ -39,4 +38,4 @@ impl TankDomain {
         }
     }
 }
-impl AbstractModel for TankDomain{}
+impl AbstractModel for TankDomain {}

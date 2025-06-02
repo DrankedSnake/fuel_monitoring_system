@@ -1,4 +1,4 @@
 mod handlers;
 mod service;
 
-pub use handlers::{get_vessels, add_vessel};
+pub use handlers::{add_vessel, get_vessels};

@@ -103,7 +103,7 @@ const NavigationItems = (): Array<ItemContainer> => {
                 title: "Densities",
                 path: "/density_coefficients",
                 component: DensityCoefficient,
-                tableHeaders: ["temperature", "density"],
+                tableHeaders: ["temperature", "density", "coefficient"],
                 icon: "icons/temperature.png"
             }
         },
