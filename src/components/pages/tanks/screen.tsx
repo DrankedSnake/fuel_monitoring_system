@@ -104,6 +104,7 @@ export default function Tanks(){
                     name="full_volume" 
                     onChange={updateFormField("full_volume")}
                     min="0"
+                    step="0.001"
                 />
                 <InputField
                     labelText="Current volume" 
@@ -113,6 +114,7 @@ export default function Tanks(){
                     name="current_volume" 
                     onChange={updateFormField("current_volume")} 
                     min="0"
+                    step="0.001"
                 />
                 <InputField
                     labelText="Safe volume" 
@@ -131,7 +133,9 @@ export default function Tanks(){
                     type="number" 
                     id="previous_volume" 
                     name="previous_volume" 
-                    onChange={updateFormField("previous_volume")} 
+                    onChange={updateFormField("previous_volume")}
+                    min="0"
+                    step="0.001"
                 />
                 <InputField
                     labelText="Current mass" 
@@ -139,7 +143,9 @@ export default function Tanks(){
                     type="number" 
                     id="current_mass" 
                     name="current_mass" 
-                    onChange={updateFormField("current_mass")} 
+                    onChange={updateFormField("current_mass")}
+                    min="0"
+                    step="0.001"
                 />
                 <InputField
                     labelText="Previous mass" 
@@ -148,6 +154,8 @@ export default function Tanks(){
                     id="previous_mass" 
                     name="previous_mass" 
                     onChange={updateFormField("previous_mass")} 
+                    min="0"
+                    step="0.001"
                 />
                 <DropDownMenu
                     items={FuelType()}
