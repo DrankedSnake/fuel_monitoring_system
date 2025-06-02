@@ -1,21 +1,24 @@
 migrations := ./src-tauri/src/api/fms_core/db/migrations
 
-_APP_NAME="fuel-monitoring-system"
-_BUILD_NAME="fuel_monitoring_system"
+_APP_NAME=fuel-monitoring-system
+_BUILD_NAME=fuel_monitoring_system
 _FMS_VERSION=0.1.0
-_TARGET_FOLDER="./src-tauri/target"
-_BUNDLE_FOLDER="/bundle/deb"
-_POSTFIX = "amd64.deb"
-_RELEASE_FOLDER="${_TARGET_FOLDER}/release${_BUNDLE_FOLDER}/${_BUILD_NAME}_${_FMS_VERSION}_${_POSTFIX}"
-_DEBUG_FOLDER="${_TARGET_FOLDER}/debug${_BUNDLE_FOLDER}/${_BUILD_NAME}_${_FMS_VERSION}_${_POSTFIX}"
-_DOWNLOAD_FOLDER="~/Downloads/${_BUILD_NAME}_${_FMS_VERSION}_${_POSTFIX}"
+_TARGET_FOLDER=./src-tauri/target
+_BUNDLE_FOLDER=/bundle/deb
+_POSTFIX=amd64.deb
+
+_FULL_NAME=${_BUILD_NAME}_${_FMS_VERSION}_${_POSTFIX}
+_RELEASE_FOLDER=${_TARGET_FOLDER}/release${_BUNDLE_FOLDER}/${_FULL_NAME}
+_DEBUG_FOLDER=${_TARGET_FOLDER}/debug${_BUNDLE_FOLDER}/${_FULL_NAME}
+
+_DOWNLOAD_FOLDER=~/Downloads/${_FULL_NAME}
 nikita_password = Vfcnbyj
 yuriy_password = 1234
 nikita_folder = ${_RELEASE_FOLDER}
 yuriy_folder = ${_DOWNLOAD_FOLDER}
 _PASSWORD = $(if $(shell whoami | grep -i nikita),${nikita_password},${yuriy_password})
 _APP_FOLDER = $(if $(shell whoami | grep -i nikita),${nikita_folder},${yuriy_folder})
-
+_DUMPS_FOLDER=./src-tauri/src/api/fms_core/db/.dumps
 
 
 help:
@@ -55,7 +58,7 @@ run_db:
 	cd docker && docker compose up --build -d
 
 dump_db:
-	mkdir ./src-tauri/src/api/fms_coare/db/.dumps docker exec -it postgres pg_dump -U postgres -d fms > src-tauri/src/api/fms_core/db/.dumps/$(shell date +%Y-%m-%d_%H-%M-%S)_dump.sql
+	mkdir ${_DUMPS_FOLDER} docker exec -it postgres pg_dump -U postgres -d fms > ${_DUMPS_FOLDER}/$(shell date +%Y-%m-%d_%H-%M-%S)_dump.sql
 
 load_latest_dump:
-	docker exec -it postgres psql -U postgres -d fms < src-tauri/src/api/fms_core/db/.dumps/$(shell ls -t src-tauri/src/api/fms_core/db/.dumps | head -n 1)
+	docker exec -it postgres psql -U postgres -d fms < ${_DUMPS_FOLDER/$(shell ls -t ${_DUMPS_FOLDER} | head -n 1)
