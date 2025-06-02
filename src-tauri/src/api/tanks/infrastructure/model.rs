@@ -58,12 +58,9 @@ impl Tank {
     ) {
         self.previous_volume = self.current_volume;
         self.previous_mass = self.current_mass;
-        self.current_volume =
-            Self::round_f64(tank_profile.volume * density_coefficient_in_vacuum.coefficient);
+        self.current_volume = Self::round_f64(tank_profile.volume * density_coefficient_in_vacuum.coefficient);
         self.current_mass = Self::round_f64(
-            self.current_volume
-                * density_coefficient_in_air.density
-                * density_coefficient_in_air.coefficient,
+            self.current_volume * density_coefficient_in_air.density * density_coefficient_in_air.coefficient,
         );
     }
 }

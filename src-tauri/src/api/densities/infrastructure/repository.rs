@@ -13,13 +13,10 @@ impl DensityCoefficientsRepository {
     #[logfn(Trace)]
     pub fn select_all_by_temperature_count(density_meta: DensityMeta) -> i64 {
         let connection = &mut establish_connection();
-        let result = FilterDsl::filter(
-            schema::table,
-            schema::temperature.eq(density_meta.temperature.unwrap()),
-        )
-        .count()
-        .get_result(connection)
-        .expect("Error during selecting density");
+        let result = FilterDsl::filter(schema::table, schema::temperature.eq(density_meta.temperature.unwrap()))
+            .count()
+            .get_result(connection)
+            .expect("Error during selecting density");
 
         result
     }
@@ -27,15 +24,12 @@ impl DensityCoefficientsRepository {
     #[logfn(Trace)]
     pub fn select_all_by_temperature(density_meta: DensityMeta) -> Vec<DensityCoefficient> {
         let connection = &mut establish_connection();
-        let result = FilterDsl::filter(
-            schema::table,
-            schema::temperature.eq(density_meta.temperature.unwrap()),
-        )
-        .limit(density_meta.limit)
-        .offset(density_meta.offset)
-        .select(DensityCoefficient::as_select())
-        .load(connection)
-        .expect("Error during selecting density");
+        let result = FilterDsl::filter(schema::table, schema::temperature.eq(density_meta.temperature.unwrap()))
+            .limit(density_meta.limit)
+            .offset(density_meta.offset)
+            .select(DensityCoefficient::as_select())
+            .load(connection)
+            .expect("Error during selecting density");
 
         result
     }
@@ -43,13 +37,10 @@ impl DensityCoefficientsRepository {
     #[logfn(Trace)]
     pub fn select_all_by_density_count(density_meta: DensityMeta) -> i64 {
         let connection = &mut establish_connection();
-        let result = FilterDsl::filter(
-            schema::table,
-            schema::density.eq(density_meta.density.unwrap()),
-        )
-        .count()
-        .get_result(connection)
-        .expect("Error during selecting density");
+        let result = FilterDsl::filter(schema::table, schema::density.eq(density_meta.density.unwrap()))
+            .count()
+            .get_result(connection)
+            .expect("Error during selecting density");
 
         result
     }
@@ -57,15 +48,12 @@ impl DensityCoefficientsRepository {
     #[logfn(Trace)]
     pub fn select_all_by_density(density_meta: DensityMeta) -> Vec<DensityCoefficient> {
         let connection = &mut establish_connection();
-        let result = FilterDsl::filter(
-            schema::table,
-            schema::density.eq(density_meta.density.unwrap()),
-        )
-        .limit(density_meta.limit)
-        .offset(density_meta.offset)
-        .select(DensityCoefficient::as_select())
-        .load(connection)
-        .expect("Error during selecting density");
+        let result = FilterDsl::filter(schema::table, schema::density.eq(density_meta.density.unwrap()))
+            .limit(density_meta.limit)
+            .offset(density_meta.offset)
+            .select(DensityCoefficient::as_select())
+            .load(connection)
+            .expect("Error during selecting density");
 
         result
     }
@@ -87,9 +75,7 @@ impl DensityCoefficientsRepository {
     }
 
     #[logfn(Trace)]
-    pub fn select_all_by_temperature_and_density(
-        density_meta: DensityMeta,
-    ) -> Vec<DensityCoefficient> {
+    pub fn select_all_by_temperature_and_density(density_meta: DensityMeta) -> Vec<DensityCoefficient> {
         let connection = &mut establish_connection();
         let result = FilterDsl::filter(
             schema::table,

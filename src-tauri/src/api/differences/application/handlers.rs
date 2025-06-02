@@ -19,17 +19,11 @@ pub fn add_difference(form: HashMap<String, Value>) -> Difference {
     let form = AddDifference::from_map(form);
     let mut tank = TankService::get_tank_by_id(form.tank_id);
 
-    let tank_profile =
-        TankProfileService::get_tank_profile(tank.id.clone(), form.height, form.trim).unwrap();
+    let tank_profile = TankProfileService::get_tank_profile(tank.id.clone(), form.height, form.trim).unwrap();
     let density_coefficient_in_vacuum =
-        DensityCoefficientService::get_density_coefficient_in_vacuum(
-            form.temperature,
-            form.density_in_vacuum,
-        )
-        .unwrap();
+        DensityCoefficientService::get_density_coefficient_in_vacuum(form.temperature, form.density_in_vacuum).unwrap();
     let density_coefficient_in_air =
-        DensityCoefficientService::get_density_coefficient_in_air(15.0, form.density_in_air)
-            .unwrap();
+        DensityCoefficientService::get_density_coefficient_in_air(15.0, form.density_in_air).unwrap();
     tank.update(
         &tank_profile,
         &density_coefficient_in_vacuum,
@@ -48,10 +42,7 @@ pub fn add_difference(form: HashMap<String, Value>) -> Difference {
         value.update(&difference);
         DailyDifferencesService::update_difference(value);
     } else {
-        DailyDifferencesService::add_daily_difference(DailyDifference::from_tank_and_difference(
-            &tank,
-            &difference,
-        ));
+        DailyDifferencesService::add_daily_difference(DailyDifference::from_tank_and_difference(&tank, &difference));
     }
 
     difference
@@ -71,9 +62,6 @@ pub fn get_differences_amount(search_form: HashMap<String, Value>) -> i64 {
 
 #[logfn(Trace)]
 #[tauri::command]
-pub fn get_daily_differences_for_current_month(
-    vessel_id: String,
-    date: String,
-) -> Vec<DailyDifference> {
+pub fn get_daily_differences_for_current_month(vessel_id: String, date: String) -> Vec<DailyDifference> {
     DailyDifferencesService::get_daily_differences(vessel_id, date)
 }

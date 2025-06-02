@@ -10,29 +10,21 @@ use super::super::infrastructure::DensityCoefficientsRepository;
 pub struct DensityCoefficientService;
 
 impl DensityCoefficientService {
-    pub fn get_density_coefficients(
-        search_form: HashMap<String, Value>,
-    ) -> Vec<DensityCoefficient> {
+    pub fn get_density_coefficients(search_form: HashMap<String, Value>) -> Vec<DensityCoefficient> {
         let density_meta = DensityMeta::from_map(search_form);
 
-        if matches!(density_meta.temperature, Option::None)
-            && matches!(density_meta.density, Option::None)
-        {
+        if matches!(density_meta.temperature, Option::None) && matches!(density_meta.density, Option::None) {
             return DensityCoefficientsRepository::select_all(density_meta);
-        } else if matches!(density_meta.temperature, Option::Some(_f64))
-            && matches!(density_meta.density, Option::None)
+        } else if matches!(density_meta.temperature, Option::Some(_f64)) && matches!(density_meta.density, Option::None)
         {
             return DensityCoefficientsRepository::select_all_by_temperature(density_meta);
-        } else if matches!(density_meta.temperature, Option::None)
-            && matches!(density_meta.density, Option::Some(_f64))
+        } else if matches!(density_meta.temperature, Option::None) && matches!(density_meta.density, Option::Some(_f64))
         {
             return DensityCoefficientsRepository::select_all_by_density(density_meta);
         } else if matches!(density_meta.temperature, Option::Some(_f64))
             && matches!(density_meta.density, Option::Some(_f64))
         {
-            return DensityCoefficientsRepository::select_all_by_temperature_and_density(
-                density_meta,
-            );
+            return DensityCoefficientsRepository::select_all_by_temperature_and_density(density_meta);
         } else {
             panic!("Exceptional case raised!")
         }
@@ -41,24 +33,18 @@ impl DensityCoefficientService {
     pub fn get_density_coefficients_amount(search_form: HashMap<String, Value>) -> i64 {
         let density_meta = DensityMeta::from_map(search_form);
 
-        if matches!(density_meta.temperature, Option::None)
-            && matches!(density_meta.density, Option::None)
-        {
+        if matches!(density_meta.temperature, Option::None) && matches!(density_meta.density, Option::None) {
             return DensityCoefficientsRepository::select_all_count();
-        } else if matches!(density_meta.temperature, Option::Some(_f64))
-            && matches!(density_meta.density, Option::None)
+        } else if matches!(density_meta.temperature, Option::Some(_f64)) && matches!(density_meta.density, Option::None)
         {
             return DensityCoefficientsRepository::select_all_by_temperature_count(density_meta);
-        } else if matches!(density_meta.temperature, Option::None)
-            && matches!(density_meta.density, Option::Some(_f64))
+        } else if matches!(density_meta.temperature, Option::None) && matches!(density_meta.density, Option::Some(_f64))
         {
             return DensityCoefficientsRepository::select_all_by_density_count(density_meta);
         } else if matches!(density_meta.temperature, Option::Some(_f64))
             && matches!(density_meta.density, Option::Some(_f64))
         {
-            return DensityCoefficientsRepository::select_all_by_temperature_and_density_count(
-                density_meta,
-            );
+            return DensityCoefficientsRepository::select_all_by_temperature_and_density_count(density_meta);
         } else {
             panic!("Exceptional case raised!")
         }
@@ -75,18 +61,12 @@ impl DensityCoefficientService {
     }
 
     #[logfn(Trace)]
-    pub fn get_density_coefficient_in_vacuum(
-        temperature: f64,
-        density: f64,
-    ) -> Option<DensityCoefficient> {
+    pub fn get_density_coefficient_in_vacuum(temperature: f64, density: f64) -> Option<DensityCoefficient> {
         DensityCoefficientsRepository::select_one_for_vacuum(temperature, density)
     }
 
     #[logfn(Trace)]
-    pub fn get_density_coefficient_in_air(
-        temperature: f64,
-        density: f64,
-    ) -> Option<DensityCoefficient> {
+    pub fn get_density_coefficient_in_air(temperature: f64, density: f64) -> Option<DensityCoefficient> {
         DensityCoefficientsRepository::select_one_for_air(temperature, density)
     }
 }

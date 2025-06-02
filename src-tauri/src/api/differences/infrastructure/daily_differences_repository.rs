@@ -37,10 +37,7 @@ impl DailyDifferencesRepository {
         result
     }
 
-    pub fn get_one_by_date_and_vessel(
-        vessel_id: &String,
-        today_date: NaiveDate,
-    ) -> Option<DailyDifference> {
+    pub fn get_one_by_date_and_vessel(vessel_id: &String, today_date: NaiveDate) -> Option<DailyDifference> {
         let connection = &mut establish_connection();
         let result = FilterDsl::filter(
             dsl::daily_difference,

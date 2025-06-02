@@ -30,10 +30,7 @@ pub fn add_density_coefficients(file_path: &str, factor: String) -> Vec<DensityC
 
 #[logfn(Trace)]
 #[tauri::command]
-pub fn get_density_coefficient_in_vacuum(
-    temperature: String,
-    density: String,
-) -> Option<DensityCoefficient> {
+pub fn get_density_coefficient_in_vacuum(temperature: String, density: String) -> Option<DensityCoefficient> {
     let temperature = temperature.replace("\"", "").parse::<f64>().unwrap();
     let density = density.replace("\"", "").parse::<f64>().unwrap();
     DensityCoefficientService::get_density_coefficient_in_vacuum(temperature, density)
@@ -41,10 +38,7 @@ pub fn get_density_coefficient_in_vacuum(
 
 #[logfn(Trace)]
 #[tauri::command]
-pub fn get_density_coefficient_in_air(
-    temperature: String,
-    density: String,
-) -> Option<DensityCoefficient> {
+pub fn get_density_coefficient_in_air(temperature: String, density: String) -> Option<DensityCoefficient> {
     let temperature = temperature.replace("\"", "").parse::<f64>().unwrap();
     let density = density.replace("\"", "").parse::<f64>().unwrap();
     DensityCoefficientService::get_density_coefficient_in_air(temperature, density)

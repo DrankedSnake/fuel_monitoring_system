@@ -19,9 +19,7 @@ impl DifferencesService {
     #[logfn(Trace)]
     pub fn get_differences(search_form: HashMap<String, Value>) -> Vec<DifferenceDomain> {
         let difference_meta = GetDifferences::from_map(search_form);
-        DifferenceDomain::from_differences(DifferencesRepository::select_differences(
-            difference_meta,
-        ))
+        DifferenceDomain::from_differences(DifferencesRepository::select_differences(difference_meta))
     }
 
     #[logfn(Trace)]

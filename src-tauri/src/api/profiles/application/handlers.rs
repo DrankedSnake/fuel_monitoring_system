@@ -15,8 +15,7 @@ pub fn add_tank_profile(tank_profile: HashMap<String, Value>) -> TankProfile {
 #[logfn_inputs(INFO, fmt = "Read csv files {} for tank {}")]
 #[tauri::command]
 pub fn add_tank_profiles(file_path: String, tank_id: &str) {
-    TankProfileService::create_tank_profiles_from_csv_file(file_path, tank_id)
-        .expect("No such file found");
+    TankProfileService::create_tank_profiles_from_csv_file(file_path, tank_id).expect("No such file found");
 }
 
 #[tauri::command]

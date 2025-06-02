@@ -37,10 +37,7 @@ impl DailyDifferencesService {
     }
 
     #[logfn(Trace)]
-    fn get_daily_differences_for_concrete_month(
-        vessel_id: String,
-        date: String,
-    ) -> Vec<DailyDifference> {
+    fn get_daily_differences_for_concrete_month(vessel_id: String, date: String) -> Vec<DailyDifference> {
         let local = date.parse::<NaiveDate>().unwrap();
         let first_date = NaiveDate::from_ymd_opt(local.year(), local.month(), 1).unwrap();
         let last_date = {

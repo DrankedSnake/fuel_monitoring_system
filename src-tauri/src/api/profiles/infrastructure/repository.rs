@@ -12,12 +12,11 @@ impl TankProfilesRepository {
     pub fn select_tank_profiles(profile_meta: ProfileMeta) -> Vec<TankProfile> {
         let connection = &mut establish_connection();
 
-        let tank_profiles =
-            FilterDsl::filter(schema::table, schema::tank_id.eq(profile_meta.tank_id))
-                .limit(profile_meta.limit)
-                .offset(profile_meta.offset)
-                .load(connection)
-                .expect("Error during selecting tank profile");
+        let tank_profiles = FilterDsl::filter(schema::table, schema::tank_id.eq(profile_meta.tank_id))
+            .limit(profile_meta.limit)
+            .offset(profile_meta.offset)
+            .load(connection)
+            .expect("Error during selecting tank profile");
 
         tank_profiles
     }
@@ -78,11 +77,7 @@ impl TankProfilesRepository {
     }
 
     #[logfn_inputs(Trace)]
-    pub fn select_tank_profile(
-        profile_tank_id: String,
-        fuel_height: f64,
-        tank_trim: f64,
-    ) -> Option<TankProfile> {
+    pub fn select_tank_profile(profile_tank_id: String, fuel_height: f64, tank_trim: f64) -> Option<TankProfile> {
         let connection = &mut establish_connection();
         let profile = FilterDsl::filter(
             schema::table,
