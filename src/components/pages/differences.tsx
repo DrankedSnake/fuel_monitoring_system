@@ -205,7 +205,7 @@ export default function Differences(){
                     name="density_in_vacuum"
                     min="0.7"
                     max="1"
-                    step="0.002"
+                    step="0.00001"
                     required
                     onChange={updateFormField("density_in_vacuum")}
                     validator={isDensityCoefficientInVacuumExists}
@@ -218,7 +218,7 @@ export default function Differences(){
                     name="density_in_air"
                     min="0.7"
                     max="1"
-                    step="0.0002"
+                    step="0.00001"
                     required
                     onChange={updateFormField("density_in_air")}
                     validator={isDensityCoefficientInAirExists}
